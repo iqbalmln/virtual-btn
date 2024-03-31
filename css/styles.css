@@ -1,0 +1,194 @@
+/*
+yellow : #FCDA31
+blue : #0B549F
+lighter-blue : #4099F2
+*/
+
+/*utility*/
+.bg-banknote-dark {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.223 10.84 8.163 12 0 12v2z' fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+.blue-color {
+  color: #0b549f;
+}
+.yellow-color {
+  color: #fcda31;
+}
+.bg-blue-color {
+  background-color: #0b549f;
+}
+
+/* navbar */
+.navbar-nav .nav-item {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.person-name {
+  font-weight: 750;
+}
+
+/* button */
+.nicebtn,
+.green-btn,
+.red-btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
+  background-color: #0b549f;
+  border: 1px solid #0b549f;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  padding: 5px 10px 5px 10px;
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  -moz-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.nicebtn:not([disabled]):hover {
+  background-color: #4099f2;
+  text-decoration: none;
+  border: 1px solid #4099f2;
+  color: #ffffff;
+}
+.green-btn {
+  background-color: #00b300;
+  border: 1px solid #00b300;
+}
+.green-btn:not([disabled]):hover {
+  background-color: #00cc00;
+  border: 1px solid #00cc00;
+}
+.red-btn {
+  background-color: #e62e00;
+  border: 1px solid #e62e00;
+}
+.red-btn:not([disabled]):hover {
+  background-color: #ff471a;
+  border: 1px solid #ff471a;
+}
+.nicebtn[disabled],
+.green-btn[disabled],
+.red-btn[disabled] {
+  opacity: 0.65;
+}
+
+/* link */
+.nicelink {
+  color: #4099f2;
+}
+.nicelink:hover {
+  color: #4099f2;
+  text-decoration: underline;
+}
+
+/*heading*/
+.content-header,
+.content-header2 {
+  background-color: #fcda31;
+  position: relative;
+  padding: 17px;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(142, 139, 133, 0.32) !important;
+}
+.content-header > h1,
+.content-header > .container > h1,
+.content-header2 > h1 {
+  margin: 0 0 0px;
+  font-size: 24px;
+  color: #0b549f;
+}
+.content-header2 {
+  background-color: #0b549f;
+}
+.content-header2 > h1 {
+  color: #fcda31;
+}
+
+/*box container*/
+.box {
+  position: relative;
+  margin-bottom: 1rem;
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px 0px rgba(142, 139, 133, 0.32);
+  padding: 0px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.box-header {
+  display: block;
+  padding: 0.75rem 1.25rem 0.5rem 17px;
+  position: relative;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.box-title {
+  color: #fcda31;
+  font-size: 16px;
+}
+.box-body {
+  padding: 1.25rem;
+  border-radius: 5px;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+/*middle content*/
+.title-text {
+  font-weight: 750;
+  color: #0b549f;
+  border-bottom: 1px solid #fcda31;
+  padding-bottom: 5px;
+}
+.virt-acc-num {
+  font-weight: bold;
+  font-size: 24px;
+  color: #0b549f;
+  border-bottom: 1px solid #fcda31;
+  padding-bottom: 5px;
+}
+.small-desc {
+  font-size: 10px;
+}
+.upl-img {
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+}
+.otp-input {
+  padding-left: 15px;
+  letter-spacing: 40px;
+  border: 0;
+  background-image: linear-gradient(
+    to left,
+    black 70%,
+    rgba(255, 255, 255, 0) 0%
+  );
+  background-position: bottom;
+  background-size: 50px 2px;
+  background-repeat: repeat-x;
+  background-position-x: 35px;
+  width: 320px;
+  min-width: 320px;
+  outline: none;
+}
+.otp-input-box2 {
+  left: 0;
+  position: sticky;
+}
+.otp-input-box,
+.otp-input-box3 {
+  width: 290px;
+}
+.otp-input-box {
+  overflow: hidden;
+}

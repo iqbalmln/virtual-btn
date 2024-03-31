@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="assets/fav-icon.ico" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font.awesome.min.css" />
+    <link rel="stylesheet" href="css/select2.min.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <script src="js/jquery-3.6.3.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/select2.min.js"></script>
+    <script src="js/i18n/id.js"></script>
+    <script src="js/app.js"></script>
+
+    <script src="js/forge.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/openaccount/"
+        ><img src="assets/img/brand/logo.png" alt=""
+      /></a>
+
+      <button
+        type="button"
+        class="nicebtn"
+        data-toggle="modal"
+        data-target="#loginModal"
+      >
+        Login Assistant
+      </button>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div id="promo" class="carousel slide mx-auto" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#promo" data-slide-to="0" class="active"></li>
+            <!-- <li data-target="#promo" data-slide-to="1"></li>
+                        <li data-target="#promo" data-slide-to="2"></li>
+                        <li data-target="#promo" data-slide-to="3"></li>
+                        <li data-target="#promo" data-slide-to="4"></li> -->
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-interval="5000">
+              <img
+                src="assets/img/banner/btn_mobile.jpg"
+                class="d-block w-100"
+                alt="BTN Mobile"
+              />
+            </div>
+            <!-- <div class="carousel-item" data-interval="5000">
+                            <img src="/openaccount/static/app/assets/img/banner/im3.jpg" class="d-block w-100" alt="IM3">
+                        </div>
+                        <div class="carousel-item" data-interval="5000">
+                            <img src="/openaccount/static/app/assets/img/banner/histeria.jpg" class="d-block w-100" alt="Histeria">
+                        </div>
+                        <div class="carousel-item" data-interval="5000">
+                            <img src="/openaccount/static/app/assets/img/banner/emas.jpg" class="d-block w-100" alt="Emas">
+                        </div>
+                        <div class="carousel-item" data-interval="5000">
+                            <img src="/openaccount/static/app/assets/img/banner/link-aja.jpg" class="d-block w-100" alt="LinkAja">
+                        </div> -->
+          </div>
+
+          <div class="carousel-inner"></div>
+          <a
+            class="carousel-control-prev"
+            href="#promo"
+            role="button"
+            data-slide="prev"
+            style="margin: 100px 0"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#promo"
+            role="button"
+            data-slide="next"
+            style="margin: 100px 0"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="p-3"></div>
+      </div>
+
+      <div class="row">
+        <div class="col"></div>
+
+        <div class="col-md-6 col-sm-8">
+          <div class="row justify-content-center">
+            <div class="col-md-6 my-3">
+              <button
+                type="button"
+                class="nicebtn p-4 w-100"
+                data-toggle="modal"
+                data-target="#selUserModal"
+              >
+                Buka Rekening Baru
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="text-center">
+            <a class="nicelink" href="/openaccount/customer/continue"
+              >Sudah Memiliki Nomor Referensi</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="p-3"></div>
+      </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div
+      class="modal fade"
+      id="loginModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="loginModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">
+              Login Banking Assistant
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="loginForm" method="post" autocomplete="off">
+              <input
+                type="hidden"
+                name="csrfmiddlewaretoken"
+                value="FoGUThY37nOj6oenLymCXkGk4lKG88VvPZVvw6sj4hzfPGuQAuUCg9MeEeLmeXJN"
+              />
+              <div class="form-group">
+                <input
+                  id="username"
+                  type="text"
+                  class="form-control"
+                  name="username"
+                  placeholder="Username"
+                  id="username"
+                  required
+                />
+                <div class="invalid-feedback">Please enter username.</div>
+                <p id="usernameErr" class="text-danger"></p>
+              </div>
+              <div class="form-group">
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  placeholder="Password"
+                  id="password"
+                  required
+                />
+                <div class="invalid-feedback">Please enter password.</div>
+                <p id="passwordErr" class="text-danger"></p>
+              </div>
+              <div class="form-group">
+                <div class="d-flex justify-content-center">
+                  <img
+                    src="/openaccount/webcaptcha/image/f9ed133279973eb55e0900eb7de752c240dca08a/"
+                    alt="captcha"
+                    class="captcha"
+                  />
+                  <input
+                    type="hidden"
+                    name="captcha_0"
+                    value="f9ed133279973eb55e0900eb7de752c240dca08a"
+                    required
+                    id="id_captcha_0"
+                  /><input
+                    type="text"
+                    name="captcha_1"
+                    required
+                    id="id_captcha_1"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
+                    spellcheck="false"
+                  />
+                </div>
+              </div>
+              <div class="form-group text-center">
+                <button type="reset" class="nicebtn" id="resetButton">
+                  Reset
+                </button>
+                <button type="button" class="nicebtn" id="loginButton">
+                  Login
+                </button>
+              </div>
+              <div class="form-group">
+                <p id="procErr" class="text-danger"></p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="selUserModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="selUserModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="selUserModalLabel"></h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12 mb-3">
+                <a
+                  href="/openaccount/customer/konven/new/select-account-type"
+                  class="nicebtn w-100"
+                  >Buka Rekening Bank BTN</a
+                >
+              </div>
+              <div class="col-12">
+                <a
+                  href="/openaccount/customer/syariah/new/select-account-type"
+                  class="nicebtn w-100"
+                  >Buka Rekening Bank BTN Syariah</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="pubkey" class="d-none">
+      -----BEGIN PUBLIC KEY-----
+      MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwbl8nW9ApdLujryW3aGc
+      GS+uo6pGw4Nm2osGHHL1KcyLMwLfjJM+jC78M/F0wnDTiDclOZY+jYbK6PGxiJMP
+      ZJinUS5AJhkL6B+zBAKSlUNUeub45LtllpUu4rW5ngMfciThtTETTHDWrPjXMyxO
+      6RyNEdNFxPObEnAszMlk7jlw1ZCJmvQRX6MhEytZnjDrPmGBNrKmADHKX+cnAFVW
+      RCa6/U67aSCI4KYndR9tyyPSlBPPbkj1j9ho73/0AjgcPD6WxDTNg7kyS7GnM1P4
+      HwXvJuZ95B8HOh8UG4DDPP2xEMSZ6jX/JuqHFvcMCmyQVtWZUlDsEVKAxufCQgEI hQIDAQAB
+      -----END PUBLIC KEY-----
+    </div>
+
+    <script type="text/javascript">
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+
+      function resetCaptcha() {
+        $.post({
+          url: "/openaccount/webcaptcha/refresh/",
+          data: {
+            csrfmiddlewaretoken: csrfToken,
+          },
+        }).done(function (data) {
+          $(".captcha").attr("src", data.image_url);
+          $("#id_captcha_0").val(data.key);
+        });
+      }
+
+      function submitLogin() {
+        $("#loginButton").attr("disabled", "disabled");
+        $("#procErr").html("");
+        var username = $("#username").val().trim();
+        var password = $("#password").val().trim();
+        var captcha0 = $("#id_captcha_0").val().trim();
+        var captcha1 = $("#id_captcha_1").val().trim();
+        password = encryptData("pubkey", password);
+        $.ajax({
+          url: "/openaccount/login",
+          type: "post",
+          data: {
+            csrfmiddlewaretoken: csrfToken,
+            username: username,
+            password: password,
+            captcha_0: captcha0,
+            captcha_1: captcha1,
+          },
+        })
+          .done(function (data) {
+            if (data.login_success == true) {
+              window.location.replace("/openaccount/");
+            } else {
+              $("#usernameErr").html(data.username_err);
+              $("#passwordErr").html(data.password_err);
+              $("#procErr").html(data.error);
+              $("#loginButton").removeAttr("disabled");
+              resetCaptcha();
+            }
+          })
+          .fail(function (xhrObj, textStatus, errorThrown) {
+            $("#procErr").html(getCommonErrStr(errorThrown));
+            $("#loginButton").removeAttr("disabled");
+            resetCaptcha();
+          });
+      }
+
+      function encryptData(keyId, inputData) {
+        var enc = forge.pki.publicKeyFromPem($("#" + keyId).html());
+        var encodeData = enc.encrypt(inputData, "RSA-OAEP", {
+          md: forge.md.sha256.create(),
+        });
+
+        return forge.util.encode64(encodeData);
+      }
+
+      $(document).ready(function () {
+        $("#loginButton").on("click", function () {
+          submitLogin();
+        });
+
+        $("#resetButton").on("click", function () {
+          $("#usernameErr").html("");
+          $("#passwordErr").html("");
+          $("#procErr").html("");
+        });
+
+        $("#loginModal").on("shown.bs.modal", function () {
+          $("#usernameErr").html("");
+          $("#passwordErr").html("");
+          $("#procErr").html("");
+        });
+
+        $("body").on("hidden.bs.modal", ".modal", function () {
+          var form = $(this).find("form");
+          if (form.length > 0) {
+            form[0].reset();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
