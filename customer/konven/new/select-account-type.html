@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="/assets/fav-icon.ico" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/openaccount/"
+        ><img src="/assets/img/brand/logo.png" alt="Logo Bank BTN"
+      /></a>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="content-header mt-3">
+        <h1>Jenis Tabungan</h1>
+      </section>
+
+      <div class="row">
+        <div class="col">
+          <div class="alert alert-info bg-banknote-dark">
+            <p>Dokumen yang perlu disiapkan sebagai berikut.</p>
+            <ul>
+              <li>Kartu tanda penduduk (KTP)</li>
+              <li>Kartu NPWP (Jika ada)</li>
+              <li>Kertas putih dan pulpen untuk contoh tanda tangan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="box">
+            <div class="box-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="accTypeCB">Jenis Tabungan</label>
+                    <select class="form-control" id="accTypeCB">
+                      <option disabled selected>
+                        --Pilih Jenis Tabungan--
+                      </option>
+
+                      <option value="1">TABUNGAN BTN BATARA</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <p id="accTypeDesc"></p>
+                    <p>
+                      <a
+                        class="nicelink d-none"
+                        id="accTypeDetailLink"
+                        href=""
+                        target="_blank"
+                        >Detail Info...</a
+                      >
+                    </p>
+                  </div>
+                </div>
+                <div class="col-md-6" id="accTypeInfo"></div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-2 col-sm-4 mx-auto">
+                  <div class="row">
+                    <div class="col my-3">
+                      <button id="nextBtn" type="button" class="nicebtn w-100">
+                        Lanjut
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="msgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="msgModalText"></p>
+            <button
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="agreeModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <!-- 
+                    <p>Apakah Anda setuju dengan <a class="nicelink" href="/openaccount/terms-cond" target="_blank">syarat dan ketentuan</a> yang berlaku?</p>
+                    -->
+            <div class="row">
+              <div class="col">
+                <div class="box">
+                  <div class="box-body">
+                    <section class="content-header mt-3">
+                      <h2 style="font-size: 20px !important">
+                        SYARAT DAN KETENTUAN UMUM PEMBUKAAN REKENING ONLINE BANK
+                        TABUNGAN NEGARA (PERSERO) TBK.
+                      </h2>
+                    </section>
+                    <div class="row">
+                      <div class="col-md-10 mx-auto">
+                        <p class="title-text border-0">A. DEFINISI</p>
+                        <ol class="text-justify">
+                          <li>
+                            “Bank” adalah PT Bank Tabungan Negara (Persero) Tbk.
+                          </li>
+                          <li>
+                            “Pemegang Rekening” adalah pihak yang mempunyai
+                            Rekening pada Bank.
+                          </li>
+                          <li>
+                            “Peraturan yang berlaku” berarti peraturan
+                            perundang-undangan yang berlaku di Republik
+                            Indonesia khususnya di bidang perbankan, termasuk
+                            akan tetapi tidak terbatas pada peraturan yang
+                            dikeluarkan oleh Bank Indonesia, Otoritas Jasa
+                            Keuangan, Lembaga Penjaminan Simpanan dan
+                            ketentuan-ketentuan dari asosiasi-asosiasi dengan
+                            siapa Bank tergabung serta aturan-aturan dan
+                            kebiasaan-kebiasaan lain yang berlaku pada waktu dan
+                            tempat tindakan atau persetujuan tersebut
+                            dilaksanakan.
+                          </li>
+                          <li>
+                            “Rekening” berarti catatan semua transaksi keuangan
+                            yang memuat data keluar masuknya keuangan Pemegang
+                            Rekening pada Bank dalam bentuk dan isi yang
+                            ditetapkan oleh Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">B. KETENTUAN UMUM</p>
+                        <ol>
+                          <li>
+                            Dengan dibuka dan dipeliharanya Rekening, maka
+                            Pemilik Rekening dengan ini menyatakan setuju untuk
+                            memenuhi semua Syarat dan Ketentuan ini, kecuali
+                            jika mengenai sesuatu ketentuan diadakan persetujuan
+                            lain secara tertulis oleh Bank dan Pemilik Rekening.
+                          </li>
+                          <li>
+                            Pelaksanaan semua persetujuan dan hubungan antara
+                            Bank dengan Pemilik Rekening dilakukan dengan
+                            memperhatikan Peraturan yang Berlaku.
+                          </li>
+                          <li>
+                            Syarat dan Ketentuan ini berlaku bagi setiap jenis
+                            Rekening, akan tetapi jika ada ketentuan-ketentuan
+                            khusus yang diatur lebih lanjut dalam setiap jenis
+                            Rekening maka ketentuan khusus dari Rekening yang
+                            bersangkutan tersebut yang akan berlaku.
+                          </li>
+                          <li>
+                            Jenis-jenis Rekening, antara lain Tabungan dan
+                            Rekening lainnya yang diadakan oleh Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          C. PERSYARATAN PEMBUKAAN REKENING
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Pemilik Rekening wajib menunjukan tanda bukti
+                            identitas diri asli yang masih berlaku dan dokumen
+                            lain yang diminta sesuai dengan ketentuan Bank yang
+                            berlaku.
+                          </li>
+                          <li>
+                            Dalam hal ini Pemilik Rekening merupakan Warga
+                            Negara Asing, maka Nasabah wajib memberikan
+                            informasi dan/ atau dokumen yang diminta sesuai
+                            dengan ketentuan Bank Indonesia yang berlaku.
+                          </li>
+                          <li>
+                            Pemilik Rekening wajib memberikan informasi dan/atau
+                            dokumen yang diminta dengan lengkap dan benar sesuai
+                            dengan persyaratan Bank, termasuk namun tidak
+                            terbatas pada informasi dan/atau dokumen terkait
+                            Customer Due Diligence (CDD) yang terkait.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          D. INFORMASI DATA NASABAH
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Bank untuk keperluannya sendiri berhak meminta
+                            informasi data profil Nasabah sesuai dengan
+                            kebutuhannya dan sesuai dengan peraturan
+                            perundang-undangan yang berlaku, baik yang telah ada
+                            ataupun yang akan ada dikemudian hari.
+                          </li>
+                          <li>
+                            Bank atas kebijakannya sendiri berhak meminta
+                            dokumen pendukung kepada Nasabah sesuai dengan
+                            keperluannya dan/atau melakukan on the spot ke
+                            tempat domisili Nasabah.
+                          </li>
+                          <li>
+                            Bank atas kebijakannya sendiri berhak menolak
+                            permohonan pembukaan rekening tanpa berkewajiban
+                            untuk mengemukakan alasannya.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          E. KEPEMILIKAN REKENING
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Kepemilikan rekening berdasarkan atas nama Nasabah
+                            yang terdaftar pada sistem Bank.
+                          </li>
+                          <li>
+                            Kepemilikan Rekening bertanggungjawab penuh atas
+                            setiap aktivitas transaksi perbankan pada rekening.
+                          </li>
+                          <li>
+                            Bila Pemilik Rekening membuka rekening lebih dari
+                            satu atas nama Pemilik Rekening itu sendiri, baik
+                            pada satu Kantor Bank atau lebih, maka semua
+                            Rekening dianggap sebagai satu kesatuan apabila hal
+                            telah diperjanjikan sebelumnya dan telah disetujui
+                            secara tertulis oleh Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">F. REKENING BERSAMA</p>
+                        <ol class="text-justify">
+                          <li>
+                            Suatu Rekening dibuka berdasarkan Fasilitas Join
+                            Account dalam bentuk ”OR” maka segala tindakan yang
+                            dilakukan salah satu pihak yang membentuk Rekening
+                            secara bersama-sama, oleh karena itu masing-masing
+                            bertanggung jawab secara tanggung renteng terhadap
+                            Bank atas semua akibat yang timbul pada Rekening
+                            dengan Fasilitas Join Account.
+                          </li>
+                          <li>
+                            Suatu Rekening dibuka berdasarkan Fasilitas Join
+                            Account dalam bentuk “AND”, maka segala tindakan
+                            harus dilakukan oleh semua pihak yang membentuk
+                            Rekening dengan Fasilitas Join Account tersebut
+                            mengikat secara bersama-sama.
+                          </li>
+                          <li>
+                            Dalam hal salah satu Pemilik Rekening Join Account
+                            meninggal dunia, maka Rekening tersebut harus
+                            dilakukan penutupan dengan dihadiri oleh ahli
+                            warisnya yang sah menurut hukum bersama-sama dengan
+                            Pemilik Rekening Gabungan lainnya yang masih hidup.
+                          </li>
+                          <li>
+                            Pemilik Rekening bertanggung jawab atas kerugian
+                            yang ditimbulkan karena perselisihan Rekening yang
+                            terdapat diantara para pihak yang membentuk Rekening
+                            dengan Fasilitas Join Account, termasuk pada akibat
+                            penutupan Rekening tersebut.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          G. BUKTI PENEMPATAN REKENING
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Sebagai bukti penempatan bagi Pemilik Rekening, Bank
+                            akan menerbitkan Buku Tabungan, e-Statement, atau
+                            bukti-bukti lainnya yang dapat dipersamakan dengan
+                            itu sesuai kebijakan Bank yang berlaku.
+                          </li>
+                          <li>
+                            Pemilik Rekening wajib menyimpan bukti penempatan
+                            Rekening sebagaimana dimaksud Pasal G Point 1 (Satu)
+                            diatas dengan sebaik-baiknya. Pemilik Rekening
+                            bertanggungjawab penuh atas penyalahgunaan dalam
+                            bentuk apapun dari bukti-bukti penempatan Rekening
+                            tersebut oleh Pemilik Rekening atau Pihak manapun
+                            dan membebaskan Bank dari segala kerugian atas
+                            tuntutan dari Pemilik Rekening atau pihak manapun
+                            dan dalam bentuk apapun yang timbul karena
+                            penyalahgunaan, kehilangan/pemalsuan bukti-bukti
+                            Rekening milik Nasabah.
+                          </li>
+                          <li>
+                            Dalam hal terjadi kehilangan bukti penempatan
+                            Rekening, Pemilik Rekening wajib melaporkan secara
+                            tertulis kepada Bank dengan diserta surat keterangan
+                            dari instansi kepolisian. Bilamana diperlukan
+                            penerbitan bukti penempatan Rekening baru, maka
+                            kepada Nasabah akan dibebankan biaya administrasi
+                            yang berlaku.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          H. PERMINTAAN TRANSFER ATAU PEMBAYARAN DAN PENARIKAN
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Setiap setoran ke dalam rekening harus disertai slip
+                            atau aplikasi lain yang ditandatangani oleh yang
+                            menyetor dan/ atau dengan cara lain yang ditentukan
+                            dan diterima baik oleh Bank sesuai dengan peraturan
+                            yang berlaku dimana hal tersebut berfungsi sebagai
+                            tanda bukti penyetoran bilamana terjadi
+                            ketidaksesuaian terhadap dana pada Rekening.
+                          </li>
+                          <li>
+                            Jumlah Setoran yang dapat dilakukan tidak dapat
+                            lebih kecil dari Setoran Awal pada saat pembukaan
+                            atau Setoran Selanjutnya yang telah ditetapkan oleh
+                            Bank.
+                          </li>
+                          <li>
+                            Penyetoran non tunai termasuk tetapi tidak terbatas
+                            pada penyetoran dalam bentuk cek, bilyet giro atau
+                            warkat kliring lainnya baru berlaku setelah dananya
+                            secara efektif diterima oleh Bank.
+                          </li>
+                          <li>
+                            Apabila setoran diterima dalam jenis valuta yang
+                            lain pada rekening, maka pengkreditan dalam rekening
+                            mempergunakan kurs yang berlaku pada Bank pada saat
+                            dananya secara efektif diterima oleh Bank dan
+                            Pemilik Rekening dengan membebaskan Bank dari
+                            tanggung jawab dan kerugian sebagai akibat perubahan
+                            kurs valuta asing dari warkat-warkat yang masih
+                            dalam proses inkaso maupun transfer.
+                          </li>
+                          <li>
+                            Setoran dalam uang kertas asing akan diberlakukan
+                            dengan cara sesuai dengan ketentuan Peraturan yang
+                            Berlaku dan Ketentuan yang berlaku pada Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">I. PENARIKAN</p>
+                        <ol class="text-justify">
+                          <li>
+                            penarikan atas Rekening harus disertai dengan slip
+                            atau aplikasi lain yang ditandatangani oleh menyetor
+                            dan/atau dengan cara lain yang ditentukan dan
+                            diterima baik oleh Bank sesuai Peraturan yang
+                            Berlaku dimana hal tersebut berfungsi sebagai tanda
+                            bukti penyetoran bilamana terjadi ketidaksesuaian
+                            terhadap dana pada Rekening.
+                          </li>
+                          <li>
+                            Jumlah Penarikan tidak dapat melebihi jumlah Saldo
+                            yang tercantum dalam Rekening dan/atau saldo minimum
+                            yang harus dipelihara dalam Rekening sesuai dengan
+                            karakteristik Rekening yang telah ditetapkan oleh
+                            Bank.
+                          </li>
+                          <li>
+                            Apabila penarikan tunai, pemindahbukuan atau
+                            transfer ke bank lain dilakukan dalam jenis valuta
+                            lain yang pada rekening, maka pendebetan Rekening
+                            akan dikonversi sesuai kurs yang berlaku pada hari
+                            tersebut.
+                          </li>
+                          <li>
+                            Pemilik Rekening dengan ini membebaskan Bank dari
+                            segala tanggungjawab dan kerugian akibat perubahan
+                            kurs valuta.
+                          </li>
+                          <li>
+                            Bank berhak menolak penarikan dana dari Rekening
+                            bilamana tidak tersedia dana efektif Rekening
+                            dan/atau karena alasan lain sesuai dengan Peraturan
+                            yang berlaku.
+                          </li>
+                          <li>
+                            Segala akibat yang ditimbulkan dari adanya penolakan
+                            pembayaran termasuk atas cek atau Bilyet Giro oleh
+                            Bank berdasarkan Peraturan Yang Berlaku, merupakan
+                            tanggungjawab dan resiko dari Pemilik Rekening.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          J. TRANSAKSI MELALUI LAYANAN PERBANKAN
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Transaksi perbankan tertentu yang berkenaan dengan
+                            karakteristik Rekening dan ditentukan oleh Bank
+                            dapat dilakukan melalui Layanan Perbankan, termasuk
+                            tetapi tidak terbatas dengan menggunakan Kartu
+                            ATM/Debit disertai dengan sandi rahasia pribadi,
+                            baik berupa Personal Identification Number (PIN),
+                            Telephone Identification Number (TIN) atau sandi
+                            lain yang sejenis ditentukan oleh Bank.
+                          </li>
+                          <li>
+                            Pemilik Rekening wajib mencantumkan tandatangan pada
+                            kertaspanel di bagian belakang Kartu ATM/Debit,
+                            sedangkan PIN dapat dibuat dan diubah sesuai dengan
+                            keinginan Pemilik Rekening.
+                          </li>
+                          <li>
+                            Pemilik Rekening bertanggung jawab penuh dalam
+                            menjaga penggunaan Kartu ATM/Debit dan kerahasiaan
+                            PIN dan dalam hal terjadi penyalahgunaan baik oleh
+                            Pemilik Rekening maupun pihak lain, Pemilik Rekening
+                            maupun pihak lain, Pemilik Rekening menanggung
+                            sepenuhnya semua resiko atau kerugian yang timbul
+                            atas penyalahgunaan tersebut.
+                          </li>
+                          <li>
+                            Bank berhak menentukan jumlah/limit transaksi
+                            rekening atau Dana yang dilakukan melalui Layanan
+                            Perbankan dan dalam hal dilakukan perubahan
+                            jumlah/limitasi transaksi, Bank akan memberitahukan
+                            kepada Pemilik Rekening menurut cara yang ditetapkan
+                            oleh Bank.
+                          </li>
+                          <li>
+                            Apabila terjadi pencurian atau kehilangan Kartu
+                            ATM/Debit, Pemilik Rekening wajib melaporkan secara
+                            tertulis kepada Bank dengan disertai surat
+                            keterangan dari instansi kepolisian dan atas dasar
+                            itu, Bank akan melakukan pemblokiran Kartu
+                            ATM/Debit, atas permintaan Pemilik Rekening dengan
+                            jangka waktu sesuai permintaan Pemilik Rekening,
+                            ketentuan Peraturan yang berlaku atau kebijakan Bank
+                            yang berlaku. Pemilik Rekening bertanggung jawab
+                            sepenuhnya atas resiko atau kerugian yang timbul
+                            sebelum diterimanya laporan pencurian atau
+                            kehilangan oleh Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          K. BIAYA, BUNGA, DAN PAJAK
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Pemilik Rekening akan dikenakan pengelolaan
+                            Rekening, namun tidak terbatas pada Biaya
+                            Administrasi Bulanan, Biaya Fasilitas Kartu dan
+                            Biaya lainnya sesuai dengan karakteristik rekening
+                            yang telah ditentukan oleh Bank.
+                          </li>
+                          <li>
+                            Bunga yang dibayarkan oleh Bank kepada Pemilik
+                            Rekening akan dikenakan pajak atau pungutan lain
+                            sesuai ketentuan Peraturan Yang Berlaku.
+                          </li>
+                          <li>
+                            Pemilik Rekening dengan ini memberikan kuasa dan
+                            wewenang kepada Bank atas pembebanan biaya serta
+                            bunga yang terutang kepada Bank, termasuk yang
+                            ditagih pihak ketiga lainnya dalam kaitan dengan
+                            transaksi yang dilakukan oleh Bank untuk kepentingan
+                            Pemilik Rekening serta biaya-biaya yang dikeluarkan
+                            oleh Bank untuk mendapatkan kembali dana-dana yang
+                            merupakan piutang Bank, dalam kaitannya dengan
+                            Rekening dengan bisnis lainnya antara Pemilik
+                            Rekening dengan Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          L. LAPORAN DAN CATATAN REKENING
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Dalam menerima laporan dan catatan atas transaksi
+                            mutasi perbankan selama periode tertentu, Pemilik
+                            Rekening dapat diberikan media pencatatan sesuai
+                            dengan karakteristik rekening yang merupakan suatu
+                            kesatuan dengan fasilitas yang diberikan pada suatu
+                            Rekening.
+                          </li>
+                          <li>
+                            Pemilik Rekening menyetujui bahwa media pencatatan
+                            sebagaimana Pasal F point 1 (Satu) diatas yang telah
+                            dibuat oleh bank secara daftar-daftar dana dari
+                            surat-surat berharga lainnya, yang diberikan oleh
+                            Bank tentang sebab, waktu dan jumlah uang tang
+                            terdapat dalam pos-pos dan saldo Rekening dan
+                            daftar-daftar tersebut.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">M. REKENING PASIF</p>
+                        <ol class="text-justify">
+                          <li>
+                            Rekening yang tidak melakukan mutasi aktif selama 6
+                            (enam) bulan berturut-turut, maka sesuai ketentuan
+                            Bank akan dikategorikan sebagai Rekening Pasif.
+                          </li>
+                          <li>
+                            Rekening Pasif tersebut akan dikenakan Biaya
+                            Rekening Pasif sesuai dengan karakteristik Rekening
+                            yang ditentukan oleh Bank.
+                          </li>
+                          <li>
+                            Bank berhak menutup Rekening Pasif tersebut apabila
+                            saldo yang mengendap pada Rekening Nihil.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          N. PEMILIK REKENING MENINGGAL DUNIA
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Jika Pemegang Rekening meninggal dunia, maka saldo
+                            dalam Rekening akan dibayarkan/diserahkan kepada
+                            ahli warisnya Pemilik Rekening yang disebutkan dalam
+                            keterangan hak waris atau dokumen-dokumen resmi
+                            lainnya sesuai dengan Peraturan yang berlaku dan
+                            ketentuan yang berlaku pada Bank.
+                          </li>
+                          <li>
+                            Dengan penyerahan kekayaan Pemilik Rekening yang
+                            meninggal dunia kepada ahli warisnya atas kuasa/wali
+                            mereka yang sah, maka Bank dibebaskan sepenuhnya
+                            dari tanggungjawab atas penyerahan tersebut.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          O. PEMBLOKIRAN DAN PENUTUPAN REKENING
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Untuk kepentingan Pemilik Rekening dan pihak-pihak
+                            terkait, Bank atas pertimbangan sendiri dan/atau
+                            atas perintah pejabat instansi yang berwenang berhak
+                            melakukan pemblokiran dan/atau penutupan Rekening
+                            yang dimiliki oleh Pemilik Rekening, tindak pidana,
+                            atau kegiatan-kegiatan yang dapat merugikan
+                            masyarakat atau pihak manapun dan/atau Bank.
+                          </li>
+                          <li>
+                            Sisa saldo pada setiap rekening yang ditutup akan
+                            diberikan kepada Pemilik Rekening setelah dipotong
+                            dengan biaya penutupan rekening tersebut serta
+                            setelah diperhitungkan dengan semua jumlah yang
+                            wajib dibayar termasuk di dalamnya kewajiban Pemilik
+                            Rekening yang masih terutang kepada Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          P. PENGUBAHAN DAN PENYIMPANGAN SYARAT DAN KETENTUAN
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Bank berhak mengadakan perubahan penambahan atau
+                            pembaharuan atas Syarat dan Ketentuan dan/atau
+                            ketentuan khusus lainnya yang berlaku pada setiap
+                            jenis Rekening dan/atau layanan dan/atau sistem yang
+                            digunakan Bank dan akan memberitahukan kepada
+                            Pemilik Rekening menurut cara yang ditetapkan oleh
+                            Bank. Pemilik Rekening wajib mematuhi, tunduk dan
+                            terikat pada perubahan, perbaikan atau penambahan
+                            tersebut.
+                          </li>
+                          <li>
+                            Setiap penyimpangan dari Syarat dan Ketentuan ini
+                            hanya diberlakukan jika penyimpangan tersebut telah
+                            disetujui secara tertulis oleh Bank.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          Q. HUKUM YANG BERLAKU DAN DOMISILI
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Syarat dan Ketentuan ini dan segala akibatnya,
+                            tunduk pada hukum yang berlaku di Negara Republik
+                            Indonesia.
+                          </li>
+                          <li>
+                            Mengenai Syarat dan Ketentuan ini dan segala
+                            akibatnya, Bank dan Pemilik Rekening setuju untuk
+                            memilih tempat kediaman hukum yang telah dan secara
+                            umum pada Kantor Panitera Pengadilan Negeri Jakarta
+                            Selatan di Jakarta.
+                          </li>
+                          <li>
+                            Jika Pemilik Rekening mempunyai beberapa Rekening
+                            pada satu atau beberapa cabang Bank, maka
+                            Rekening-Rekening tersebut dipandang sebagai satu
+                            kesatuan dan domisili hukum yang dipilih adalah
+                            Kantor Pengadilan Negeri Jakarta Selatan di Jakarta.
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">R. LAIN – LAIN</p>
+                        <ol class="text-justify">
+                          <li>
+                            Jika Bank telah melaksanakan perintah atau instruksi
+                            Pemilik Rekening termasuk tetapi tidak terbatas pada
+                            penyetoran, penarikan atau transfer yang digunakan
+                            dengan cek, bilyet giro, formulir atau dokumen
+                            lainnya yang hilang, dicuri diselewengkan, digunakan
+                            secara tidak sah, dipalsukan, ditiru, atau dibuat
+                            secara salah, maka semua akibat yang ditimbulkan
+                            dari adanya hal-hal tersebut di atas menjadi
+                            tanggungan atau resiko Pemilik Rekening sepenuhnya
+                            kecuali dapat dibuktikan sebaliknya.
+                          </li>
+                          <li>
+                            Seluruh dana Pemilik Rekening yang ditempatkan di
+                            Bank yang melebihi maksimum nilai simpanan dan/ atau
+                            tingkat suku bungan yang dijamin Lembaga Penjaminan
+                            Simpanan (LPS) atau tidak memenuhi persyaratan lain
+                            yang dapat menyebabkan dana yang ditempatkan tidak
+                            termasuk dalam program penjaminan LPS dan/ atau
+                            Peraturan Yang Berlaku, maka atas segala risiko yang
+                            timbul menjadi tanggung jawab Pemilik Rekening
+                            sepenuhnya.
+                          </li>
+                          <li>
+                            Syarat dan Ketentuan ini telah disesuaikan dengan
+                            Peraturan Yang Berlaku termasuk ketentuan peraturan
+                            Otoritas Jasa Keuangan (OJK).
+                          </li>
+                        </ol>
+                        <p class="title-text border-0">
+                          S. PENGGUNAAN INFORMASI PRIBADI NASABAH
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Saya memberikan hak kepada Bank untuk memberikan dan
+                            atau menyebarkan data pribadi saya kepada perusahaan
+                            anak Bank dan perusahaan yang bekerjasama dengan
+                            bank untuk tujuan komersial.
+                          </li>
+                          <li>
+                            Saya telah memahami penjelasan Bank mengenai tujuan
+                            dan konsekuensi dari pemberian dan atau
+                            penyebarluasan data pribadi saya kepada perusahaan
+                            anak Bank dan perusahaan yang bekerjasama dengan
+                            Bank untuk tujuan komersial.
+                          </li>
+                          <li>
+                            Setiap dan segala informasi dan dokumen yang
+                            diberikan dalam Formulir Beneficial Owner (Form BO)
+                            ini adalah benar, sesuai, akurat serta berkekuatan
+                            hukum dan dengan ini memberikan kuasa kepada Bank
+                            untuk dapat melakukan konfirmasi setiap dan segala
+                            informasi dan dokumen dari segala sumber.
+                          </li>
+                          <li>
+                            Apabila terdapat perubahan informasi atas perubahan
+                            data Pemilik Rekening (alamat kantor, nomor telepon
+                            fixed-line, nomor telepon seluler (handphone),
+                            alamat email), pihak lain yang dapat dihubungi (nama
+                            lengkap, hubungan, alamat, nomor telepon, nomor
+                            telepon seluler, kota) dan data lain yang pernah
+                            diberikan pada Bank maka Pemilik Rekening
+                            menyampaikan pernyataan tertulis kepada Bank yang
+                            ditandatangani oleh Pemilik Rekening atau yang
+                            ditunjuk melalui Surat Kuasa oleh Pemilik Rekening
+                            dan selanjutnya dilakukan perubahan data pada CIF
+                            Bank.
+                          </li>
+                          <li>
+                            Apabila atas perubahan data Pemilik Rekening pada
+                            poin 3 di atas tidak disampaikan secara tertulis
+                            kepada Bank, maka resiko menjadi tanggung jawab
+                            Pemilik Rekening dan Bank dibebaskan dari segala
+                            tuntutan atas tidak adanya informasi terkait
+                            perubahan tersebut.
+                          </li>
+                          <li>
+                            Sepenuhnya mengerti bawa Bank dapat mengambil
+                            tindakan untuk menolak transaksi, membatalkan
+                            transaksi dan / atau menutup hubungan usaha apabila
+                            Nasabah tidak memenuhi ketentuan Penerapan Program
+                            Anti Pencucian Uang dan Pencegahan Pendanaan
+                            Terorisme (APU dan PPT) yang berlaku bagi Bank Umum.
+                          </li>
+                          <li>
+                            Bank setiap saat berhak atas pertimbangan sendiri
+                            menutup rekening tanpa perlu memberikan suatu alasan
+                            apapun, penutupan mana akan diberitahukan secara
+                            tertulis kepada Pemegang Rekening.
+                          </li>
+                        </ol>
+                        <br />
+                        <p class="title-text border-0">
+                          Dengan ini saya menyatakan bahwa :
+                        </p>
+                        <ol class="text-justify">
+                          <li>
+                            Saya Setuju mengikuti Uji Coba Operasional terbatas
+                            Online Onboarding Open Account (versi EKYC).
+                          </li>
+                          <li>
+                            Saya Setuju untuk tidak menyebarluaskan alamat URL
+                            Online Onboarding Open Account (versi EKYC) kepada
+                            pihak-pihak dan/atau nasabah yang tidak memiliki
+                            kepentingan dalam Uji Coba Operasional terbatas.
+                          </li>
+                          <li>
+                            Saya Setuju mentaati syarat & ketentuan Online
+                            Onboarding Open Account (versi EKYC).
+                          </li>
+                          <li>
+                            Saya Setuju memberikan informasi atas kelemahan dan
+                            kelebihan Online Onboarding Open Account (versi
+                            EKYC) pada saat operasional terbatas melalui form
+                            feedback Uji Coba Operasional Terbatas Online
+                            Onboarding Open Account (versi EKYC) kepada pihak
+                            Bank.
+                          </li>
+                          <li>
+                            Data pribadi yang saya berikan dalam aplikasi ini
+                            adalah yang sebenar-benarnya.
+                          </li>
+                          <li>
+                            PT Bank Tabungan Negara (Persero) Tbk. Selanjutnya
+                            disebut “Bank” telah memberikan penjelasan yang
+                            cukup mengenai karakteristik produk bank dan saya
+                            telah mengerti serta memahami segala konsekuensi
+                            pemanfaatan produk termasuk manfaat, risiko, dan
+                            biaya yang melekat pada produk tersebut serta Syarat
+                            dan Ketentuan Pembukaan Rekening dan Ketentuan
+                            Permohonan.
+                          </li>
+                          <li>
+                            Bank dapat melakukan pemeriksaan terhadap kebenaran
+                            data yang saya sampaikan dalam aplikasi ini.
+                          </li>
+                          <li>
+                            Memberikan kuasa kepada Bank yang tidak dapat
+                            dibatalkan secara sepihak oleh Nasabah sesuai dengan
+                            pasal 1813 Kitab Undang – Undang Hukum Perdata untuk
+                            :
+                          </li>
+                          <ol type="a">
+                            <li>
+                              Mendebet rekening Nasabah dalam rangka pembayaran
+                              maupun beban yang timbul dari produk maupun
+                              konsekuensinya.
+                            </li>
+                            <li>
+                              Melakukan pemblokiran rekening jika diindikasikan
+                              telah terjadi penyalahgunaan rekening dan/atau
+                              oleh sebab-sebab lainnya.
+                            </li>
+                          </ol>
+                        </ol>
+                        <br />
+                        <input
+                          type="checkbox"
+                          id="iagree"
+                          onclick="AgreeChecked()"
+                        />
+                        <label for="iagree">
+                          <b>
+                            Saya telah membaca dan setuju dengan seluruh
+                            persyaratan di atas
+                          </b></label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="d-flex justify-content-center">
+                  <img
+                    src="/openaccount/webcaptcha/image/b44a7e98836cda8243b06a1c3eb99eb25bc12e14/"
+                    alt="captcha"
+                    class="captcha"
+                  />
+                  <input
+                    type="hidden"
+                    name="captcha_0"
+                    value="b44a7e98836cda8243b06a1c3eb99eb25bc12e14"
+                    required
+                    id="id_captcha_0"
+                  />
+                  <label for="id_captcha_1" class="d-none">Captcha</label>
+                  <input
+                    type="text"
+                    name="captcha_1"
+                    required
+                    id="id_captcha_1"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
+                    spellcheck="false"
+                  />
+                </div>
+              </div>
+            </div>
+            <br />
+            <button
+              id="yesBtn"
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Setuju"
+              disabled
+            >
+              Setuju
+            </button>
+            <button
+              type="button"
+              class="nicebtn float-right"
+              data-dismiss="modal"
+              aria-label="Tidak"
+            >
+              Tidak
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="mdlErrFlow"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+      data-keyboard="false"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 style="font-size: 20px !important" class="modal-title">
+              Tahapan Pembukaan Rekening Salah
+            </h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Mohon maaf, tahapan pembukaan rekening Anda terjadi kesalahan.
+                  <br />
+                  Anda dapat melanjutkan tahapan pembukaan rekening menggunakan
+                  nomor referensi dan nomor handphone Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/customer/continue.html"
+              role="button"
+              >OK</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionReminderModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionReminderModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2
+              style="font-size: 20px !important"
+              class="modal-title"
+              id="sessionReminderModalLabel"
+            >
+              Session Segera Berakhir
+            </h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Session Anda akan segera habis dalam 5 menit. Segera lanjutkan
+                  pengisian data dan aktivitas Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              aria-label="Lanjut"
+            >
+              Lanjut
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionOverModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2
+              style="font-size: 20px !important"
+              class="modal-title"
+              id="sessionOverModalLabel"
+            >
+              Session Berakhir
+            </h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Sesi Anda telah habis. Anda dapat melanjutkan pengisian data
+                  atau keluar dari proses pembukaan rekening
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/customer/continue.html"
+              role="button"
+              >Lanjut</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="/openaccount/logout"
+              role="button"
+              >Keluar</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showSessionReminder() {
+        $("#sessionReminderModal").modal({
+          backdrop: "static",
+          keyboard: false,
+        });
+      }
+      var to1 = 600 * 1000;
+      var timeout1 = setTimeout(showSessionReminder, to1);
+
+      function showSessionOver() {
+        $("#sessionOverModal").modal({ backdrop: "static", keyboard: false });
+      }
+      var to2 = 900 * 1000;
+      var timeout2 = setTimeout(showSessionOver, to2);
+    </script>
+
+    <form>
+      <input
+        type="hidden"
+        name="csrfmiddlewaretoken"
+        value="5VmUd9S077UR4yx5VAy6ILbznhbcwf2RfwBvQYmg41FNNQNyKw661AhtXacSC4Q9"
+      />
+    </form>
+    <script>
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+      var accTypeId = 0;
+
+      function resetCaptcha() {
+        $.post({
+          url: "/openaccount/webcaptcha/refresh/",
+          data: {
+            csrfmiddlewaretoken: csrfToken,
+          },
+        }).done(function (data) {
+          $(".captcha").attr("src", data.image_url);
+          $("#id_captcha_0").val(data.key);
+        });
+      }
+
+      function AgreeChecked() {
+        var checkBox = document.getElementById("iagree");
+        var btn = document.getElementById("yesBtn");
+
+        if (checkBox.checked == true) {
+          btn.disabled = false;
+        } else {
+          btn.disabled = true;
+        }
+      }
+
+      function submitAgreement() {
+        if (accTypeId) return;
+        $("#yesBtn").attr("disabled", "disabled");
+        var captcha0 = $("#id_captcha_0").val().trim();
+        var captcha1 = $("#id_captcha_1").val().trim();
+        window.location.replace("/customer/mobile-phone/verify.html");
+        // $.post({
+        //   url: "/openaccount/customer/select-account-type/proc",
+        //   data: {
+        //     csrfmiddlewaretoken: csrfToken,
+        //     acc_type_id: accTypeId,
+        //     captcha_0: captcha0,
+        //     captcha_1: captcha1,
+        //   },
+        // })
+        //   .done(function (data) {
+        //     if (data.success == 1)
+        //       window.location.replace(
+        //         "/openaccount/customer/mobile-phone/verify"
+        //       );
+        //     else {
+        //       if (data.error) {
+        //         const arrError = data.error.split("-");
+        //         if (arrError[0].trim() == 2) $("#mdlErrFlow").modal();
+        //       }
+        //       $("#agreeModal").modal("hide");
+        //       $("#msgModalText").html(data.error);
+        //       $("#msgModal").modal("show");
+        //       $("#yesBtn").removeAttr("disabled");
+        //       resetCaptcha();
+        //     }
+        //   })
+        //   .fail(function (xhrObj, textStatus, errorThrown) {
+        //     $("#agreeModal").modal("hide");
+        //     $("#msgModalText").html(getCommonErrStr(errorThrown));
+        //     $("#msgModal").modal("show");
+        //     $("#yesBtn").removeAttr("disabled");
+        //     resetCaptcha();
+        //   });
+      }
+      $(document).ready(function () {
+        $("#accTypeCB").change(function () {
+          var accTypeDesc = "";
+          var accTypeInfo = "";
+          var accTypeId = $(this).val();
+
+          // Sesuaikan konten accTypeDesc berdasarkan nilai accTypeId
+          switch (accTypeId) {
+            case "1":
+              accTypeDesc =
+                "Adalah tabungan yang dapat mendukung kemudahan financial, seperti menabung, bertransaksi, serta mengatur keuangan. Dilengkapi dengan Kartu ATM dan electronic channel yang memungkinkan nasabah bertransaksi kapanpun dan dimanapun. Dilengkapi dengan layanan notifikasi terkait transaksi rekening.";
+              $("#accTypeDetailLink").removeClass("d-none");
+              $("#accTypeInfo").html(
+                '<div class="title-text">TABUNGAN BTN BATARA</div>\n<div class="row mt-2">\n    <div class="col-lg-6">\n        Minimum Saldo\n    </div>\n    <div class="col-lg-6 blue-color text-right">\n        Rp. 10,000\n    </div>\n</div>\n<div class="row mt-2">\n    <div class="col-lg-6">\n        Setoran Pertama\n    </div>\n    <div class="col-lg-6 blue-color text-right">\n        Bebas Setoran Awal\n    </div>\n</div>\n<div class="row mt-2">\n    <div class="col-lg-6">\n        Minimum Setoran Selanjutnya\n    </div>\n    <div class="col-lg-6 blue-color text-right">\n        Rp. 10,000\n    </div>\n</div>\n<div class="row mt-2">\n    <div class="col-lg-6">\n        Biaya Admin\n    </div>\n    <div class="col-lg-6 blue-color text-right">\n        Rp. 2,000\n    </div>\n</div>'
+              );
+              break;
+            case "2":
+              accTypeDesc = "Content 2";
+              break;
+            // Tambahkan case sesuai dengan nilai-nilai yang mungkin
+            default:
+              accTypeDesc = "Content 3";
+              break;
+          }
+
+          // Isi elemen dengan id "accTypeDesc" dengan konten yang sesuai
+          $("#accTypeDesc").html(accTypeDesc);
+        });
+        $("#nextBtn").click(function () {
+          if (accTypeId) return;
+          $("#agreeModal").modal("show");
+          document.getElementById("iagree").checked = false;
+          document.getElementById("yesBtn").disabled = true;
+          document.getElementById("id_captcha_1").value = "";
+        });
+
+        $("#yesBtn").click(function () {
+          submitAgreement();
+        });
+
+        document.getElementById("accTypeCB").selectedIndex = 0;
+      });
+    </script>
+  </body>
+</html>
