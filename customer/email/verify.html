@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="/assets/fav-icon.ico" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+
+    <style>
+      #btnSendOTP:focus {
+        outline: lightgreen solid 10px;
+      }
+    </style>
+    <script src="/js/moment/moment.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/"
+        ><img src="/assets/img/brand/logo.png" alt="Logo Bank BTN"
+      /></a>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="content-header mt-3">
+        <h1>Verifikasi Email</h1>
+      </section>
+
+      <div class="row">
+        <div class="col">
+          <div class="box">
+            <div class="box-body">
+              <form id="formVerifyEmail" autocomplete="off">
+                <input
+                  type="hidden"
+                  name="csrfmiddlewaretoken"
+                  value="Yb1mTrYkqUw4ha173dGBEzoxbINujRJn8MgXwgsAnOh00shAS9eBXourLBOapGxF"
+                />
+                <div id="divPhoneNum" style="display: block">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto text-center">
+                      <p>
+                        Masukkan alamat email, lalu tekan tombol 'Minta OTP'
+                        untuk mendapatkan kode OTP yang digunakan untuk
+                        mengkonfirmasi email Anda.
+                      </p>
+                      <p>Alamat email yang dimasukkan maksimal 30 karakter.</p>
+                    </div>
+                  </div>
+                  <br />
+                  <div
+                    class="row"
+                    style="display: flex; justify-content: center"
+                  >
+                    <div class="col-lg-4 col-md-4">
+                      <div class="form-group position-relative">
+                        <label
+                          for="email"
+                          style="visibility: hidden; position: absolute"
+                          >Email</label
+                        >
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          name="email"
+                          placeholder="Masukkan Alamat Email"
+                          maxlength="30"
+                        />
+                        <p id="emailErr" class="text-danger"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+                  <div
+                    class="row"
+                    style="display: flex; justify-content: center"
+                  >
+                    <button id="btnSendOTP" type="button" class="nicebtn">
+                      Kirim OTP
+                    </button>
+                  </div>
+                </div>
+                <div id="divOTP" style="display: none">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto text-center">
+                      <p>
+                        Kode OTP telah dikirim melalui email ke
+                        <span id="email_addr"></span
+                        ><a
+                          id="other_email"
+                          href="/openaccount/customer/email/verify"
+                          style="display: none"
+                        >
+                          atau ingin menggunakan email lain.</a
+                        >
+                        Masukkan kode OTP yang terkirim ke email Anda, lalu
+                        tekan tombol 'Lanjut'.
+                      </p>
+                      <br />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 mx-auto">
+                      <div class="otp-input-box mx-auto">
+                        <div class="otp-input-box2">
+                          <label for="otp" class="d-none">OTP</label>
+                          <input
+                            id="otp"
+                            class="otp-input"
+                            type="text"
+                            name="otp"
+                            maxlength="6"
+                          />
+                        </div>
+                      </div>
+                      <div class="otp-input-box3 mx-auto">
+                        <p id="otpErr" class="text-danger"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-md-6 mx-auto text-center">
+                          <div id="countdownText"></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mx-auto text-center">
+                          <p id="procErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 col-sm-4 mx-auto mb-2">
+                          <button
+                            id="reqOTPBtn"
+                            type="button"
+                            class="nicebtn w-100"
+                          >
+                            Minta OTP
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 col-sm-4 mx-auto">
+                          <button
+                            id="nextBtn"
+                            type="button"
+                            class="nicebtn w-100"
+                          >
+                            Lanjut
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="msgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="msgModalText"></p>
+            <button
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="mdlErrFlow"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+      data-keyboard="false"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2
+              style="font-size: 20px !important"
+              class="modal-title"
+              id="sessionOverModalLabel"
+            >
+              Tahapan Pembukaan Rekening Salah
+            </h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Mohon maaf, tahapan pembukaan rekening Anda terjadi kesalahan.
+                  <br />
+                  Anda dapat melanjutkan tahapan pembukaan rekening menggunakan
+                  nomor referensi dan nomor handphone Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/openaccount/customer/continue"
+              role="button"
+              >OK</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      moment().format();
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+
+      var countdownText = $("#countdownText");
+      var otpExpTime = moment();
+      var waitTime = 0;
+      var waitingInterval = undefined;
+      var waitingOTP = false;
+      var numPatt = new RegExp("^[0-9]+$");
+
+      function preventBack() {
+        window.history.forward();
+      }
+      setTimeout("preventBack()", 0);
+      window.onunload = function () {
+        null;
+      };
+
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+
+      var email = document.getElementById("email");
+      email.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          document.getElementById("btnSendOTP").click();
+        }
+      });
+
+      function secondsToTime(e) {
+        var h = Math.floor(e / 3600)
+            .toString()
+            .padStart(2, "0"),
+          m = Math.floor((e % 3600) / 60)
+            .toString()
+            .padStart(2, "0"),
+          s = Math.floor(e % 60)
+            .toString()
+            .padStart(2, "0");
+
+        return h + ":" + m + ":" + s;
+      }
+
+      // function updateCountdown() {
+      //     waitingOTP = true;
+      //     var durationTime = moment.duration(otpExpTime.diff(moment()));
+      //     var text = "";
+      //     $("#resendEmailBtn").css("display", "none");
+      //     if (durationTime.minutes() > 0) {
+      //         text = "Mohon menunggu " + durationTime.minutes() + " menit " + durationTime.seconds() + " detik sebelum minta OTP lagi."
+      //     } else if (durationTime.seconds() > 0) {
+      //         text = "Mohon menunggu " + durationTime.seconds() + " detik sebelum minta OTP lagi."
+      //     }
+      //     countdownText.text(text);
+      //     if (durationTime.asSeconds() <= 0) {
+      //         clearInterval(waitingInterval);
+      //         waitingOTP = false;
+      //         countdownText.text('');
+      //     $("#resendEmailBtn").css("display", "block");
+      //     }
+      // }
+
+      function updateCountdown() {
+        waitingOTP = true;
+        var text = "";
+        $("#reqOTPBtn").css("display", "none");
+        $("#other_email").css("display", "none");
+        if (waitTime > 0) {
+          text =
+            "Mohon tunggu dalam " +
+            secondsToTime(waitTime) +
+            " detik untuk kirim ulang atau gunakan email lain";
+          waitTime -= 1;
+        }
+        countdownText.text(text);
+        if (waitTime <= 0) {
+          clearInterval(waitingInterval);
+          waitingOTP = false;
+          countdownText.text("");
+          $("#reqOTPBtn").css("display", "block");
+          $("#other_email").css("display", "block");
+        }
+      }
+
+      function reqOTP() {
+        $("#msgModal").modal("show");
+        if (waitingOTP) {
+          $("#msgModalText").html("Mohon menunggu sebelum minta OTP kembali");
+        } else {
+          $("#otpErr").html("");
+          $("#procErr").html("");
+          $("#btnSendOTP").attr("disabled", "disabled");
+          $("#reqOTPBtn").attr("disabled", "disabled");
+          $("#msgModalText").html("Email telah berhasil dikirim");
+          $("#divPhoneNum").css("display", "none");
+          $("#divOTP").css("display", "block");
+          $("#reqOTPBtn").css("display", "none");
+          // Start waiting countdown
+          // otpExpTime = moment.utc(data.exp_time);
+          waitTime = 600;
+          waitingInterval = setInterval(updateCountdown, 1000);
+          // $.post({
+          //   url: "/openaccount/request-email-otp",
+          //   data: {
+          //     csrfmiddlewaretoken: csrfToken,
+          //     email: $("#email").val(),
+          //   },
+          // })
+          //   .done(function (data) {
+          //     if (data.success == 1) {
+          //       $("#msgModalText").html("Email telah berhasil dikirim");
+          //       $("#divPhoneNum").css("display", "none");
+          //       $("#divOTP").css("display", "block");
+          //       $("#reqOTPBtn").css("display", "none");
+          //       // Start waiting countdown
+          //       // otpExpTime = moment.utc(data.exp_time);
+          //       waitTime = data.wait_time;
+          //       waitingInterval = setInterval(updateCountdown, 1000);
+          //     } else {
+          //       if (data.error) {
+          //         const arrError = data.error.split("-");
+          //         if (arrError[0].trim() == 2) $("#mdlErrFlow").modal();
+          //       }
+          //       $("#msgModalText").html(data.error);
+          //       $("#reqOTPBtn").removeAttr("disabled");
+          //       $("#btnSendOTP").removeAttr("disabled");
+          //     }
+          //     $("#msgModal").modal("show");
+          //   })
+          //   .fail(function (xhrObj, textStatus, errorThrown) {
+          //     $("#msgModalText").html(getCommonErrStr(errorThrown));
+          //     $("#msgModal").modal("show");
+          //   })
+          //   .always(function () {
+          //     $("#reqOTPBtn").removeAttr("disabled");
+          //   });
+        }
+      }
+
+      $(document).ready(function () {
+        $("#resendEmailBtn").click(function () {
+          if (waitingOTP) {
+            $("#msgModalText").html("Mohon menunggu sebelum minta OTP kembali");
+            $("#msgModal").modal("show");
+          } else {
+            $("#resendEmailBtn").attr("disabled", "disabled");
+            $.post({
+              url: "/openaccount/request-email-otp",
+              data: { csrfmiddlewaretoken: csrfToken },
+            })
+              .done(function (data) {
+                if (data.success == 1) {
+                  $("#msgModalText").html("Email telah berhasil dikirim");
+                  // Start waiting countdown
+                  otpExpTime = moment.utc(data.exp_time);
+                  waitingInterval = setInterval(updateCountdown, 1000);
+                } else {
+                  if (data.error) {
+                    const arrError = data.error.split("-");
+                    if (arrError[0].trim() == 2) $("#mdlErrFlow").modal();
+                  }
+                  $("#msgModalText").html(data.error);
+                }
+                $("#msgModal").modal("show");
+              })
+              .fail(function (xhrObj, textStatus, errorThrown) {
+                $("#msgModalText").html(getCommonErrStr(errorThrown));
+                $("#msgModal").modal("show");
+              })
+              .always(function () {
+                $("#resendEmailBtn").removeAttr("disabled");
+              });
+          }
+        });
+
+        $("#btnSendOTP").click(function () {
+          reqOTP();
+          document.getElementById("email_addr").innerHTML = $("#email").val();
+        });
+
+        $("#reqOTPBtn").click(function () {
+          reqOTP();
+        });
+
+        $("#nextBtn").click(function () {
+          var form = document.getElementById("formVerifyEmail");
+          $("#nextBtn").attr("disabled", "disabled");
+          $("#otpErr").html("");
+          $("#procErr").html("");
+          window.location.replace("/customer/upload-image");
+
+          //   $.post({
+          //     url: "/openaccount/customer/email/verify/proc",
+          //     data: {
+          //       csrfmiddlewaretoken: csrfToken,
+          //       otp: form["otp"].value,
+          //       email: form["email"].value,
+          //     },
+          //   })
+          //     .done(function (data) {
+          //       if (data.success == 1) {
+          //         window.location.replace("/openaccount/customer/upload-image");
+          //       } else {
+          //         if (data.error) {
+          //           const arrError = data.error.split("-");
+          //           if (arrError[0].trim() == 2) $("#mdlErrFlow").modal();
+          //         }
+          //         $("#otpErr").html(data.otp_err);
+          //         $("#procErr").html(data.error);
+          //         $("#nextBtn").removeAttr("disabled");
+          //       }
+          //     })
+          //     .fail(function (xhrObj, textStatus, errorThrown) {
+          //       $("#procErr").html(getCommonErrStr(errorThrown));
+          //       $("#nextBtn").removeAttr("disabled");
+          //     });
+        });
+
+        $(".otp-input").on("keypress", function (evt) {
+          var charCode = evt.which ? evt.which : event.keyCode;
+          if (charCode < 48 || charCode > 57) return false;
+          if (this.value.length == 6) {
+            return false;
+          }
+        });
+
+        $(".otp-input").on("paste", function (evt) {
+          var tmpStr = evt.originalEvent.clipboardData.getData("text");
+          if (!numPatt.test(tmpStr)) {
+            return false;
+          }
+        });
+
+        $("#formVerifyEmail").submit(function (ev) {
+          ev.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>
