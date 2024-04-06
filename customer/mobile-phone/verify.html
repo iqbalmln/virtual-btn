@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="/assets/fav-icon.ico" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+
+    <style>
+      #btnSendOTP:focus {
+        outline: lightgreen solid 10px;
+      }
+    </style>
+    <script src="/js/moment/moment.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/"
+        ><img src="/assets/img/brand/logo.png" alt="Logo Bank BTN"
+      /></a>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="content-header mt-3">
+        <h1>Verifikasi Nomor Handphone</h1>
+      </section>
+
+      <div class="row">
+        <div class="col">
+          <div class="box">
+            <div class="box-body">
+              <form id="formVerifyMobilePhone" autocomplete="off">
+                <input
+                  type="hidden"
+                  name="csrfmiddlewaretoken"
+                  value="eUCPqjXKROXsQvLPIboj5sBJe2JHulf6ovRq38r0OIIozN1ix7WjohHDOVKnAa3o"
+                />
+                <div id="divPhoneNum" style="display: block">
+                  <div
+                    class="row"
+                    style="display: flex; justify-content: center"
+                  >
+                    <div class="form-group">
+                      <label for="mobile_phone_num">Nomor Handphone </label>
+                      <span style="color: red">(Contoh : 628123456789)</span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="mobile_phone_num"
+                        name="mobile_phone_num"
+                        placeholder="Nomor Handphone"
+                        onkeypress="return isNumberKey(event)"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                        maxlength="14"
+                      />
+                      <p id="mobilePhoneNumErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                  <div
+                    class="row"
+                    style="display: flex; justify-content: center"
+                  >
+                    <button id="btnSendOTP" type="button" class="nicebtn">
+                      Kirim OTP
+                    </button>
+                  </div>
+                </div>
+                <div id="divOTP" style="display: none">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                      <div class="otp-input-box3 mx-auto text-center">
+                        <p>
+                          Kode OTP telah dikirim melalui SMS ke
+                          <span id="phone_no"></span>
+                          <a
+                            id="other_phone"
+                            href="/openaccount/customer/mobile-phone/verify"
+                            style="display: none"
+                            >atau ingin menggunakan nomor handphone yang
+                            lain.</a
+                          >
+                        </p>
+                      </div>
+                      <div class="otp-input-box mx-auto">
+                        <div class="otp-input-box2">
+                          <label for="inputOTP" class="d-none">INPUT OTP</label>
+                          <input
+                            id="inputOTP"
+                            class="otp-input"
+                            type="text"
+                            name="otp"
+                            maxlength="6"
+                          />
+                        </div>
+                      </div>
+                      <div class="otp-input-box3 mx-auto">
+                        <p id="otpErr" class="text-danger"></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="row">
+                        <div class="col-md-6 mx-auto text-center">
+                          <div id="countdownText"></div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6 mx-auto text-center">
+                          <p id="procErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 col-sm-4 mx-auto mb-2">
+                          <button
+                            id="reqOTPBtn"
+                            type="button"
+                            class="nicebtn w-100"
+                          >
+                            Minta OTP
+                          </button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2 col-sm-4 mx-auto">
+                          <button
+                            id="nextBtn"
+                            type="button"
+                            class="nicebtn w-100"
+                          >
+                            Lanjut
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="msgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="msgModalText"></p>
+            <button
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      moment().format();
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+
+      var countdownText = $("#countdownText");
+      var otpExpTime = moment();
+      var waitTime = 0;
+      var waitingInterval = undefined;
+      var waitingOTP = false;
+      var numPatt = new RegExp("^[0-9]+$");
+
+      function preventBack() {
+        window.history.forward();
+      }
+      setTimeout("preventBack()", 0);
+      window.onunload = function () {
+        null;
+      };
+
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+
+      var mob_num = document.getElementById("mobile_phone_num");
+      mob_num.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          document.getElementById("btnSendOTP").click();
+        }
+      });
+
+      function secondsToTime(e) {
+        var h = Math.floor(e / 3600)
+            .toString()
+            .padStart(2, "0"),
+          m = Math.floor((e % 3600) / 60)
+            .toString()
+            .padStart(2, "0"),
+          s = Math.floor(e % 60)
+            .toString()
+            .padStart(2, "0");
+
+        return h + ":" + m + ":" + s;
+      }
+
+      // function updateCountdown() {
+      //     waitingOTP = true;
+      //     var durationTime = moment.duration(otpExpTime.diff(moment()));
+      //     var text = "";
+      //     $("#resendEmailBtn").css("display", "none");
+      //     if (durationTime.minutes() > 0) {
+      //         text = "Mohon menunggu " + durationTime.minutes() + " menit " + durationTime.seconds() + " detik sebelum minta OTP lagi."
+      //     } else if (durationTime.seconds() > 0) {
+      //         text = "Mohon menunggu " + durationTime.seconds() + " detik sebelum minta OTP lagi."
+      //     }
+      //     countdownText.text(text);
+      //     if (durationTime.asSeconds() <= 0) {
+      //         clearInterval(waitingInterval);
+      //         waitingOTP = false;
+      //         countdownText.text('');
+      //         $("#resendEmailBtn").css("display", "block");
+      //     }
+      // }
+
+      function updateCountdown() {
+        waitingOTP = true;
+        var text = "";
+        $("#reqOTPBtn").css("display", "none");
+        $("#other_phone").css("display", "none");
+        if (waitTime > 0) {
+          text =
+            "Mohon tunggu dalam " +
+            secondsToTime(waitTime) +
+            " detik untuk kirim ulang atau gunakan nomor HP lain";
+          waitTime -= 1;
+        }
+        countdownText.text(text);
+        if (waitTime <= 0) {
+          clearInterval(waitingInterval);
+          waitingOTP = false;
+          countdownText.text("");
+          $("#reqOTPBtn").css("display", "block");
+          $("#other_phone").css("display", "block");
+        }
+      }
+
+      function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+        var phoneno = document.getElementById("mobile_phone_num").value;
+
+        if (phoneno.substr(0, 2) != "62") {
+          document.getElementById("mobile_phone_num").value = "62" + phoneno;
+        }
+        if (phoneno.substr(0, 2) == "62") {
+          document.getElementById("mobile_phone_num").value =
+            "62" + phoneno.substr(2, phoneno.length - 2);
+        }
+        if (phoneno.substr(0, 3) == "620") {
+          document.getElementById("mobile_phone_num").value =
+            "62" + phoneno.substr(3, phoneno.length - 3);
+        }
+        if (phoneno.substr(0, 4) == "6262") {
+          document.getElementById("mobile_phone_num").value =
+            "62" + phoneno.substr(4, phoneno.length - 4);
+        }
+        return true;
+      }
+
+      function MobilePhoneNoValidation() {
+        var valid = false;
+        var phoneno = document.getElementById("mobile_phone_num").value;
+
+        if (phoneno.substr(0, 1) == "0") {
+          document.getElementById("mobile_phone_num").value =
+            "62" + phoneno.substr(1, phoneno.length - 1);
+        } else if (phoneno.substr(0, 2) == "62") {
+          document.getElementById("mobile_phone_num").value = phoneno;
+        } else if (phoneno == "") {
+          document.getElementById("mobile_phone_num").value = "";
+        } else {
+          document.getElementById("mobile_phone_num").value = "62" + phoneno;
+        }
+
+        phoneno = document.getElementById("mobile_phone_num").value;
+        if (phoneno.length < 11) {
+          document.getElementById("mobilePhoneNumErr").innerHTML =
+            "Harus minimal 11 karakter";
+          valid = false;
+        } else if (phoneno.length > 14) {
+          document.getElementById("mobilePhoneNumErr").innerHTML =
+            "Harus maksimal 14 karakter";
+          valid = false;
+        } else {
+          document.getElementById("mobilePhoneNumErr").innerHTML = "";
+          valid = true;
+        }
+
+        return valid;
+      }
+
+      function reqOTP() {
+        // if (waitingOTP) {
+        //   $("#msgModalText").html("Mohon menunggu sebelum minta OTP kembali");
+        //   $("#msgModal").modal("show");
+        // } else {
+        //   $("#otpErr").html("");
+        //   $("#procErr").html("");
+        //   $("#btnSendOTP").attr("disabled", "disabled");
+        //   $("#reqOTPBtn").attr("disabled", "disabled");
+        //   $.post({
+        //     url: "/openaccount/request-mobile-phone-otp",
+        //     data: {
+        //       csrfmiddlewaretoken: csrfToken,
+        //       mobile_phone_num: $("#mobile_phone_num").val(),
+        //     },
+        //   })
+        //     .done(function (data) {
+        //       if (data.success === 1) {
+        //         $("#msgModalText").html("SMS OTP berhasil dikirim");
+        //         $("#divPhoneNum").css("display", "none");
+        //         $("#divOTP").css("display", "block");
+        //         $("#reqOTPBtn").css("display", "none");
+        //         // Start waiting countdown
+        //         // otpExpTime = moment.utc(data.exp_time);
+        //         waitTime = data.wait_time;
+        //         waitingInterval = setInterval(updateCountdown, 1000);
+        //       } else {
+        //         $("#msgModalText").html(data.error);
+        //         $("#reqOTPBtn").removeAttr("disabled");
+        //         $("#btnSendOTP").removeAttr("disabled");
+        //       }
+        //       $("#msgModal").modal("show");
+        //     })
+        //     .fail(function (xhrObj, textStatus, errorThrown) {
+        //       $("#msgModalText").html(getCommonErrStr(errorThrown));
+        //       $("#msgModal").modal("show");
+        //     })
+        //     .always(function () {
+        //       $("#reqOTPBtn").removeAttr("disabled");
+        //     });
+        // }
+        $("#msgModal").modal("show");
+        $("#msgModalText").html("SMS OTP berhasil dikirim");
+        $("#divPhoneNum").css("display", "none");
+        $("#divOTP").css("display", "block");
+        $("#reqOTPBtn").css("display", "none");
+        document.getElementById("phone_no").innerHTML =
+          $("#mobile_phone_num").val();
+        // Start waiting countdown
+        // otpExpTime = moment.utc(data.exp_time);
+        waitTime = 600;
+        waitingInterval = setInterval(updateCountdown, 1000);
+      }
+
+      $(document).ready(function () {
+        $("#btnSendOTP").click(function () {
+          // if (MobilePhoneNoValidation()) {
+          // }
+          reqOTP();
+          document.getElementById("phone_no").innerHTML =
+            $("#mobile_phone_num").val();
+        });
+
+        $("#reqOTPBtn").click(function () {
+          reqOTP();
+        });
+
+        $("#nextBtn").click(function () {
+          var form = document.getElementById("formVerifyMobilePhone");
+
+          $("#nextBtn").attr("disabled", "disabled");
+          $("#otpErr").html("");
+          $("#procErr").html("");
+          window.location.replace("/customer/email/verify.html");
+
+          // $.post({
+          //   url: "/openaccount/customer/mobile-phone/verify/proc",
+          //   data: {
+          //     csrfmiddlewaretoken: csrfToken,
+          //     otp: form["otp"].value,
+          //     mobile_phone_num: form["mobile_phone_num"].value,
+          //   },
+          // })
+          //   .done(function (data) {
+          //     if (data.success == 1) {
+          //       window.location.replace("/openaccount/customer/email/verify");
+          //     } else {
+          //       $("#otpErr").html(data.otp_err);
+          //       $("#procErr").html(data.error);
+          //       $("#nextBtn").removeAttr("disabled");
+          //     }
+          //   })
+          //   .fail(function (xhrObj, textStatus, errorThrown) {
+          //     $("#procErr").html(getCommonErrStr(errorThrown));
+          //     $("#nextBtn").removeAttr("disabled");
+          //   });
+        });
+
+        $(".otp-input").on("keypress", function (evt) {
+          var charCode = evt.which ? evt.which : event.keyCode;
+          if (charCode < 48 || charCode > 57) return false;
+          if (this.value.length == 6) {
+            return false;
+          }
+        });
+
+        $(".otp-input").on("paste", function (evt) {
+          var tmpStr = evt.originalEvent.clipboardData.getData("text");
+          if (!numPatt.test(tmpStr)) {
+            return false;
+          }
+        });
+
+        $("#formVerifyMobilePhone").submit(function (ev) {
+          ev.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>
