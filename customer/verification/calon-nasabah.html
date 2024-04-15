@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="/assets/fav-icon.ico" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/datepicker.min.js"></script>
+    <script src="/js/datepicker.en.js"></script>
+
+    <script src="/js/forge.min.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/"
+        ><img src="/assets/img/brand/logo.png" alt="Logo Bank BTN"
+      /></a>
+    </nav>
+    <div class="container-fluid">
+      <section class="content-header mt-3">
+        <h1>Verifikasi Calon Nasabah</h1>
+      </section>
+      <form class="m-5 d-flex flex-column row" id="identifikasiForm">
+        <header>
+          <h2>Video Call dengan Customer Support BTN</h2>
+          <p>Ini adalah proses terakhir dari pembuatan rekening BTN Anda</p>
+        </header>
+        <div class="row">
+          <section style="gap: 1rem" class="d-flex flex-column col-6 p-0">
+            <div class="p-2 border border-dark rounded">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  value="ya"
+                  id="flexRadioDefault1"
+                />
+                <label class="form-check-label" for="flexRadioDefault1"
+                  >Sambungkan saya dengan Customer Support sekarang</label
+                >
+              </div>
+            </div>
+            <div class="p-2 border border-dark rounded">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  value="tidak"
+                  id="flexRadioDefault2"
+                />
+                <label class="form-check-label" for="flexRadioDefault2"
+                  >Saya mau lakukan nanti</label
+                >
+              </div>
+            </div>
+          </section>
+          <div style="gap: 1rem" class="d-flex flex-column col-6 p-0">
+            <p style="visibility: hidden">hau</p>
+            <div class="d-flex">
+              <div class="col-md-6">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="kycDate"
+                  placeholder="Tanggal (DD-MM-YYYY)"
+                  readonly
+                />
+              </div>
+              <div class="col-md-6">
+                <select class="form-control" id="kycTime">
+                  <option value="" disabled selected>--Waktu--</option>
+
+                  <option value="09:00-10:00">09:00-10:00</option>
+
+                  <option value="10:00-11:00">10:00-11:00</option>
+
+                  <option value="11:00-12:00">11:00-12:00</option>
+
+                  <option value="12:00-13:00">12:00-13:00</option>
+
+                  <option value="13:00-14:00">13:00-14:00</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer style="margin-top: 10rem" class="d-flex justify-content-center">
+          <button type="submit" class="nicebtn px-4 py-3 w-25">
+            Lanjutkan
+          </button>
+        </footer>
+      </form>
+    </div>
+    <script>
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+      var MAX_DAYS = parseInt("7");
+      var COME_TO_BRANCH_OFFICE = "3";
+      var EKYC = "4";
+      var maxDateObj = new Date();
+      var minDateObj = new Date();
+
+      $(".select2").select2();
+
+      function preventBack() {
+        window.history.forward();
+      }
+      setTimeout("preventBack()", 0);
+      window.onunload = function () {
+        null;
+      };
+
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+
+      function showBrOffInfo(addr, phoneNum, mapLink) {
+        if (addr.length <= 0) {
+          $("#branchOfficeInfoBox").addClass("d-none");
+          $("#branchOfficeAddr").html("");
+          $("#branchOfficePhoneNum").html("");
+          $("#branchOfficeMapLink").attr("href", "");
+        } else {
+          $("#branchOfficeInfoBox").removeClass("d-none");
+          $("#branchOfficeAddr").html(addr);
+          $("#branchOfficePhoneNum").html(phoneNum);
+          $("#branchOfficeMapLink").attr("href", mapLink);
+        }
+      }
+
+      function getFormattedDate(date) {
+        var year = date.getFullYear(),
+          month = date.getMonth() + 1,
+          date = date.getDate();
+        var strMonth = "0" + month,
+          strDate = "0" + date;
+
+        return (
+          year +
+          "-" +
+          strMonth.substr(strMonth.length - 2) +
+          "-" +
+          strDate.substr(strDate.length - 2)
+        );
+      }
+
+      var datelist = [
+        "2024-04-15",
+        "2024-04-16",
+        "2024-04-17",
+        "2024-04-18",
+        "2024-04-19",
+        "2024-04-22",
+        "2024-04-23",
+      ];
+
+      minDateObj = new Date(datelist[0]);
+      maxDateObj = new Date(datelist[datelist.length - 1]);
+      var loopDate = new Date();
+      loopDate.setDate(minDateObj.getDate() + 1);
+      var disabledDates = [];
+
+      while (loopDate < maxDateObj) {
+        isDateInclude = datelist.includes(getFormattedDate(loopDate));
+        if (!isDateInclude) {
+          disabledDates.push(getFormattedDate(loopDate));
+        }
+        loopDate.setDate(loopDate.getDate() + 1);
+      }
+
+      $(document).ready(function () {
+        // minDateObj.setDate(minDateObj.getDate() + 1);
+        // maxDateObj.setDate(maxDateObj.getDate() + MAX_DAYS);
+
+        var kycDatePicker = $("#kycDate")
+          .datepicker({
+            language: "en",
+            minDate: minDateObj,
+            maxDate: maxDateObj,
+            dateFormat: "dd-mm-yyyy",
+            autoClose: true,
+            toggleSelected: false,
+            todayButton: true,
+            onRenderCell: function (d, type) {
+              if (type == "day") {
+                var disabled = false,
+                  formatted = getFormattedDate(d);
+
+                disabled = disabledDates.filter(function (date) {
+                  return date == formatted;
+                }).length;
+
+                return {
+                  disabled: disabled,
+                };
+              }
+            },
+            onSelect: function (fmtDate, date, inst) {
+              var tmpVal =
+                date.getFullYear() +
+                "-" +
+                (date.getMonth() + 1) +
+                "-" +
+                date.getDate();
+              $("#kycDateVal").val(tmpVal);
+            },
+          })
+          .data("datepicker");
+
+        $("#nextBtn").click(function () {
+          var form = document.getElementById("formKYC");
+          var kycDateTime = "";
+
+          $("#nextBtn").attr("disabled", "disabled");
+          $("#kycMethodErr").html("");
+          $("#branchOfficeErr").html("");
+          $("#kycDateTimeErr").html("");
+          $("#procErr").html("");
+
+          if (form["kyc_method"].value == COME_TO_BRANCH_OFFICE) {
+            kycDateTime = $("#kycDateVal").val() + " " + $("#kycTime").val();
+          }
+
+          $.post({
+            url: "/openaccount/customer/kyc/select/proc",
+            data: {
+              csrfmiddlewaretoken: csrfToken,
+              kyc_method: form["kyc_method"].value,
+              branch_office: form["branch_office"].value,
+              branch_office_name: form["branch_office"].options[
+                form["branch_office"].selectedIndex
+              ].text.substring(0, 100),
+              branch_office_addr: $("#branchOfficeAddr").html(),
+              branch_office_phone_num: $("#branchOfficePhoneNum").html(),
+              branch_office_map_link: $("#branchOfficeMapLink").attr("href"),
+              kyc_datetime: kycDateTime,
+            },
+          })
+            .done(function (data) {
+              if (data.success == 1) {
+                if (data.next_url) {
+                  window.location.replace(data.next_url);
+                }
+              } else {
+                $("#kycMethodErr").html(data.kyc_method_err);
+                $("#branchOfficeErr").html(data.branch_office_err);
+                $("#kycDateTimeErr").html(data.kyc_datetime_err);
+                $("#procErr").html(data.error);
+                $("#nextBtn").removeAttr("disabled");
+              }
+            })
+            .fail(function (xhrObj, textStatus, errorThrown) {
+              $("#procErr").html(getCommonErrStr(errorThrown));
+              $("#nextBtn").removeAttr("disabled");
+            });
+        });
+
+        $("[name=branch_office]").on("select2:select", function (e) {
+          showBrOffInfo(
+            e.params.data.branch_address,
+            e.params.data.phone_no,
+            e.params.data.map_link
+          );
+        });
+
+        $("[name=branch_office]").on("select2:clear", function (e) {
+          showBrOffInfo("", "", "");
+        });
+
+        var formObj = document.getElementById("formKYC");
+        formObj.reset();
+      });
+    </script>
+  </body>
+</html>

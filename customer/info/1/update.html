@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="assets/fav-icon.ico" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+
+    <script src="/js/forge.min.js"></script>
+    <style>
+      #checkNPWP {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/openaccount/"
+        ><img src="/assets/img/brand/logo.png" alt="Logo Bank BTN"
+      /></a>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="content-header2 mt-3">
+        <h1>Pembukaan Tabungan</h1>
+      </section>
+      <section class="content-header mt-3">
+        <h1>Data Pribadi</h1>
+      </section>
+
+      <div class="row">
+        <div class="col">
+          <div class="box">
+            <div class="box-body">
+              <form id="formCustInfo" autocomplete="off">
+                <input
+                  type="hidden"
+                  name="csrfmiddlewaretoken"
+                  value="Tk5ZEBWoIfq4ESk3jIvAErmxbd8PUi0c3VkAhqqEF9b0naAw8E3AXgsrL69v07Ou"
+                />
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="citizenNo"
+                        >NIK <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="NIK"
+                        id="citizenNo"
+                        placeholder="NIK"
+                        onkeypress="return isNumberKey(event)"
+                        onblur="NIKValidation(this);"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                        aria-describedby="nikErr"
+                        maxlength="16"
+                        aria-invalid="false"
+                      />
+                      <p
+                        id="nikErr"
+                        class="text-danger"
+                        role="alert"
+                        aria-live="assertive"
+                      ></p>
+                    </div>
+                    <div class="form-group p-0">
+                      <input
+                        type="checkbox"
+                        class="form-check-label p-0"
+                        name="npwp"
+                        id="npwp"
+                        onclick="haveNPWP()"
+                      />
+                      <label class="form-check-label" for="npwp">
+                        Memiliki NPWP
+                      </label>
+                    </div>
+                    <div id="checkNPWP" class="form-group">
+                      <label for="inputNPWP">NPWP</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="NPWP"
+                        id="inputNPWP"
+                        placeholder="NPWP"
+                        onkeypress="return isNumberKey(event)"
+                        onblur="NPWPValidation();"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                        maxlength="16"
+                      />
+                      <p id="npwpErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="fullName"
+                        >Nama Lengkap
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        id="fullName"
+                        type="text"
+                        class="form-control"
+                        name="fullName"
+                        placeholder="Nama Lengkap"
+                        maxlength="40"
+                      />
+                      <p id="fullNameErr" class="text-danger"></p>
+                    </div>
+                    <fieldset>
+                      <legend style="font-size: 1rem">Jenis Kelamin</legend>
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="form-group">
+                            <div class="custom-control custom-radio">
+                              <input
+                                class="custom-control-input"
+                                type="radio"
+                                id="male"
+                                name="sex"
+                                value="M"
+                              />
+                              <label for="male" class="custom-control-label"
+                                >Laki-laki</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6">
+                          <div class="form-group">
+                            <div class="custom-control custom-radio">
+                              <input
+                                class="custom-control-input"
+                                type="radio"
+                                id="female"
+                                name="sex"
+                                value="F"
+                              />
+                              <label for="female" class="custom-control-label"
+                                >Perempuan</label
+                              >
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div class="form-group">
+                      <label for="birthPlace"
+                        >Tempat Lahir
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        id="birthPlace"
+                        type="text"
+                        class="form-control"
+                        name="POB"
+                        placeholder="Tempat Lahir"
+                        maxlength="30"
+                      />
+                      <p id="pobErr" class="text-danger"></p>
+                    </div>
+                    <p>Tanggal Lahir <strong class="text-danger">*</strong></p>
+                    <div class="row">
+                      <div class="col-4">
+                        <div class="form-group" style="position: relative">
+                          <label
+                            for="dob"
+                            style="visibility: hidden; position: absolute"
+                            >DOB</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="DOB"
+                            id="dob"
+                            placeholder="Tanggal"
+                            onblur="isDOBValid();"
+                            onkeypress="return isNumberKey(event)"
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                            maxlength="2"
+                          />
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group" style="position: relative">
+                          <label
+                            style="visibility: hidden; position: absolute"
+                            for="mob"
+                            >MOB</label
+                          >
+                          <select class="form-control" name="MOB" id="mob">
+                            <option value="01">Januari</option>
+                            <option value="02">Februari</option>
+                            <option value="03">Maret</option>
+                            <option value="04">April</option>
+                            <option value="05">Mei</option>
+                            <option value="06">Juni</option>
+                            <option value="07">Juli</option>
+                            <option value="08">Agustus</option>
+                            <option value="09">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                          </select>
+                          <p id="mobErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <div class="form-group">
+                          <label
+                            for="yob"
+                            style="visibility: hidden; position: absolute"
+                            >YOB</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            name="YOB"
+                            id="yob"
+                            placeholder="Tahun"
+                            onblur="isYOBValid();"
+                            onkeypress="return isNumberKey(event)"
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                            maxlength="4"
+                          />
+                          <p id="yobErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                      <p id="dobErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="mother_name"
+                        >Nama Gadis Ibu Kandung
+                        <strong class="text-danger">*</strong>
+                        <p class="small-desc mb-0">
+                          (Penulisan nama, spasi dan gelar harus sesuai dengan
+                          data Disdukcapil)
+                        </p>
+                      </label>
+                      <input
+                        id="mother_name"
+                        type="text"
+                        class="form-control text-uppercase"
+                        name="mother_name"
+                        placeholder="Nama Gadis Ibu Kandung"
+                      />
+                      <p id="motherNameErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="livingAddress"
+                        >Alamat <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        id="livingAddress"
+                        type="text"
+                        class="form-control"
+                        name="livingAddress"
+                        placeholder="Alamat"
+                        maxlength="70"
+                      />
+                      <p id="livingAddressErr" class="text-danger"></p>
+                    </div>
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label for="rt"
+                            >RT <strong class="text-danger">*</strong></label
+                          >
+                          <input
+                            id="rt"
+                            type="text"
+                            class="form-control"
+                            name="RT"
+                            placeholder="RT"
+                            onkeypress="return isNumberKey(event)"
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                            maxlength="3"
+                          />
+                          <p id="rtErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="form-group">
+                          <label for="rw"
+                            >RW <strong class="text-danger">*</strong></label
+                          >
+                          <input
+                            id="rw"
+                            type="text"
+                            class="form-control"
+                            name="RW"
+                            placeholder="RW"
+                            onkeypress="return isNumberKey(event)"
+                            onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                            maxlength="3"
+                          />
+                          <p id="rwErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="province"
+                        >Provinsi <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control select2"
+                        id="province"
+                        name="province"
+                        style="width: 100%"
+                      >
+                        <option value="" disabled selected>--Provinsi--</option>
+
+                        <option value="aceh">ACEH</option>
+
+                        <option value="bali">BALI</option>
+
+                        <option value="banten">BANTEN</option>
+
+                        <option value="bengkulu">BENGKULU</option>
+
+                        <option value="diy">DAERAH ISTIMEWA YOGYAKARTA</option>
+
+                        <option value="jakarta">DKI JAKARTA</option>
+
+                        <option value="gorontalo">GORONTALO</option>
+
+                        <option value="jambi">JAMBI</option>
+
+                        <option value="jabar">JAWA BARAT</option>
+
+                        <option value="jateng">JAWA TENGAH</option>
+
+                        <option value="jatim">JAWA TIMUR</option>
+
+                        <option value="kalbar">KALIMANTAN BARAT</option>
+
+                        <option value="kalsel">KALIMANTAN SELATAN</option>
+
+                        <option value="kalteng">KALIMANTAN TENGAH</option>
+                      </select>
+                      <p id="provinceErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="kabupaten"
+                        >Kabupaten / Kota
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control select2"
+                        id="kabupaten"
+                        name="kabupaten"
+                        style="width: 100%"
+                      >
+                        <option value="" disabled selected>
+                          --Pilih Kabupaten/Kota--
+                        </option>
+
+                        <option value="jaktim">JAKARTA TIMUR</option>
+
+                        <option value="jakbar">JAKARTA BARAT</option>
+
+                        <option value="jaksel">JAKARTA SELATAN</option>
+
+                        <option value="jakut">JAKARTA UTARA</option>
+                        <option value="jakpus">JAKARTA PUSAT</option>
+                        <option value="pulau-seribu">KEPULAUAN SERIBU</option>
+                      </select>
+                      <p id="kabupatenErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="kecamatan"
+                        >Kecamatan <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control select2"
+                        id="kecamatan"
+                        name="kecamatan"
+                        style="width: 100%"
+                      >
+                        <option value="" disabled selected>
+                          --Kecamatan--
+                        </option>
+                        <option value="pasar-rebo">PASAR REBO</option>
+                        <option value="ciracas">CIRACAS</option>
+                        <option value="cipayung">CIPAYUNG</option>
+                        <option value="makasar">MAKASAR</option>
+                        <option value="kramatjati">KRAMAT JATI</option>
+                        <option value="jatinegara">JATINEGARA</option>
+                        <option value="durensawit">DUREN SAWIT</option>
+                        <option value="cakung">CAKUNG</option>
+                        <option value="pulogadung">PULOGADUNG</option>
+                        <option value="matraman">MATRAMAN</option>
+                      </select>
+                      <p id="kecamatanErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="kelurahan"
+                        >Kelurahan / Desa
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control select2"
+                        id="kelurahan"
+                        name="kelurahan"
+                        style="width: 100%"
+                      >
+                        <option value="" disabled selected>
+                          --Kelurahan--
+                        </option>
+                        <option value="pinang-ranti">PINANG RANTI</option>
+                        <option value="makasar">MAKASAR</option>
+                        <option value="kebo-pala">KEBO PALA</option>
+                        <option value="halim">HALIM PK</option>
+                        <option value="melayu">CIP. MELAYU</option>
+                      </select>
+                      <p id="kelurahanErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="postal_code"
+                        >Kode Pos <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="postal_code"
+                        id="postal_code"
+                        placeholder="Kode Pos"
+                        onkeypress="return isNumberKey(event)"
+                        onblur="PostalCodeValidation(this);"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                        aria-describedby="postalCodeErr"
+                        maxlength="5"
+                        aria-invalid="false"
+                      />
+                      <p id="postalCodeErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lastEdu"
+                        >Pendidikan Terakhir
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select class="form-control" name="lastEdu" id="lastEdu">
+                        <option value="" disabled selected>
+                          --Pendidikan--
+                        </option>
+
+                        <option value="1">TAMAT SD/SEDERAJAT</option>
+
+                        <option value="2">SLTP/SEDERAJAT</option>
+
+                        <option value="3">SLTA/SEDERAJAT</option>
+
+                        <option value="4">DIPLOMA I/II</option>
+
+                        <option value="5">BELUM TAMAT SD/SEDERAJAT</option>
+
+                        <option value="6">
+                          AKADEMI/DIPLOMA III/SARJANA MUDA
+                        </option>
+
+                        <option value="7">DIPLOMA IV/STRATA I</option>
+
+                        <option value="8">STRATA-II</option>
+
+                        <option value="9">STRATA-III</option>
+
+                        <option value="10">TIDAK/BLM SEKOLAH</option>
+                      </select>
+                      <p id="lastEduErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="occupation"
+                        >Jenis Pekerjaan
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control"
+                        id="occupation"
+                        name="occupation"
+                        onchange="showOtherFld(this, 'other_occupation')"
+                      >
+                        <option value="" disabled selected>
+                          --Jenis Pekerjaan--
+                        </option>
+
+                        <option value="1">PEGAWAI NEGERI</option>
+
+                        <option value="2">PEGAWAI SWASTA</option>
+
+                        <option value="3">PEGAWAI BUMN/BUMD</option>
+
+                        <option value="4">PEGAWAI BTN</option>
+
+                        <option value="5">TNI</option>
+
+                        <option value="6">POLRI</option>
+
+                        <option value="7">PENGUSAHA</option>
+
+                        <option value="8">PEDAGANG</option>
+
+                        <option value="9">PELAJAR / MAHASISWA</option>
+
+                        <option value="10">IBU RUMAH TANGGA</option>
+
+                        <option value="11">WIRASWASTA</option>
+
+                        <option value="12">HUKUM (PENGACARA, NOTARIS)</option>
+
+                        <option value="13">MILITER</option>
+
+                        <option value="14">PENGAJAR</option>
+
+                        <option value="15">PENSIUNAN</option>
+
+                        <option value="16">INSINYUR</option>
+
+                        <option value="17">DOKTER</option>
+
+                        <option value="18">
+                          PEKERJA SENI (ARTIS, MUSISI PELUKIS, DSB)
+                        </option>
+
+                        <option value="-1">LAINNYA</option>
+                      </select>
+                      <p id="occupationErr" class="text-danger"></p>
+                      <input
+                        type="text"
+                        class="form-control text-uppercase d-none"
+                        name="other_occupation"
+                        id="other_occu"
+                        onblur="isOtherOccuValid();"
+                        placeholder="Jenis Pekerjaan Lainnya"
+                      />
+                      <p id="otherOccupationErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="marital"
+                        >Status Pernikahan
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select class="form-control" id="marital" name="marital">
+                        <option value="" disabled selected>
+                          --Status Pernikahan--
+                        </option>
+
+                        <option value="1">BELUM KAWIN</option>
+
+                        <option value="2">KAWIN</option>
+
+                        <option value="3">CERAI HIDUP</option>
+
+                        <option value="4">CERAI MATI</option>
+                      </select>
+                      <p id="maritalErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="religion"
+                        >Agama <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control"
+                        id="religion"
+                        name="religion"
+                      >
+                        <option value="" disabled selected>--Agama--</option>
+
+                        <option value="1">ISLAM</option>
+
+                        <option value="2">KRISTEN</option>
+
+                        <option value="3">KATHOLIK</option>
+
+                        <option value="4">HINDU</option>
+
+                        <option value="5">BUDHA</option>
+
+                        <option value="6">KHONGHUCU</option>
+                      </select>
+                      <p id="religionErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="referral_code">Kode Referral</label>
+                      <input
+                        id="referral_code"
+                        type="text"
+                        class="form-control"
+                        name="referral_code"
+                        placeholder="Kode Referral"
+                        maxlength="6"
+                      />
+                      <p id="referralCodeErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col-md-6 mx-auto text-center">
+                      <p id="procErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 col-sm-4 mx-auto">
+                      <button id="nextBtn" type="button" class="nicebtn w-100">
+                        Lanjut
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-danger"><em>* harus diisi</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="msgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="msgModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="msgModalText"></p>
+            <button
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="mdlErrFlow"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+      data-keyboard="false"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Tahapan Pembukaan Rekening Salah</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Mohon maaf, tahapan pembukaan rekening Anda terjadi kesalahan.
+                  <br />
+                  Anda dapat melanjutkan tahapan pembukaan rekening menggunakan
+                  nomor referensi dan nomor handphone Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/openaccount/customer/continue"
+              role="button"
+              >OK</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionReminderModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionReminderModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sessionReminderModalLabel">
+              Session Segera Berakhir
+            </h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Session Anda akan segera habis dalam 5 menit. Segera lanjutkan
+                  pengisian data dan aktivitas Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              aria-label="Lanjut"
+            >
+              Lanjut
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionOverModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sessionOverModalLabel">
+              Session Berakhir
+            </h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Sesi Anda telah habis. Anda dapat melanjutkan pengisian data
+                  atau keluar dari proses pembukaan rekening
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/openaccount/customer/continue"
+              role="button"
+              >Lanjut</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="/openaccount/logout"
+              role="button"
+              >Keluar</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function haveNPWP() {
+        var checkbox = document.getElementById("npwp");
+        var npwpInput = document.getElementById("checkNPWP");
+
+        // Jika checkbox dicek, tampilkan input NPWP, jika tidak, sembunyikan
+        npwpInput.style.display = checkbox.checked ? "block" : "none";
+      }
+      function showSessionReminder() {
+        $("#sessionReminderModal").modal({
+          backdrop: "static",
+          keyboard: false,
+        });
+      }
+      var to1 = 600 * 1000;
+      var timeout1 = setTimeout(showSessionReminder, to1);
+
+      function showSessionOver() {
+        $("#sessionOverModal").modal({ backdrop: "static", keyboard: false });
+      }
+      var to2 = 900 * 1000;
+      var timeout2 = setTimeout(showSessionOver, to2);
+    </script>
+
+    <script>
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+      var form = document.getElementById("formCustInfo");
+      var propinsi = "";
+      var kabupaten = "";
+      var kecamatan = "";
+      var kelurahan = "";
+
+      function preventBack() {
+        window.history.forward();
+      }
+      setTimeout("preventBack()", 0);
+      window.onunload = function () {
+        null;
+      };
+
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+
+      function showOtherFld(selObj, otherFldName) {
+        var selName = "[name=" + otherFldName + "]";
+
+        if (selObj.value == -1) $(selName).removeClass("d-none");
+        else $(selName).addClass("d-none");
+
+        if (selObj.value != "") {
+          $("#occupationErr").html("");
+          document.getElementById("otherOccupationErr").innerHTML = "";
+        }
+      }
+
+      function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+        return true;
+      }
+
+      function MobilePhoneNoValidation() {
+        var valid = false;
+        var phoneno = document.getElementById("mobphono").value;
+
+        if (phoneno.substr(0, 1) == "0") {
+          document.getElementById("mobphono").value =
+            "62" + phoneno.substr(1, phoneno.length - 1);
+        } else if (phoneno.substr(0, 2) == "62") {
+          document.getElementById("mobphono").value = phoneno;
+        } else if (phoneno == "") {
+          document.getElementById("mobphono").value = "";
+        } else {
+          document.getElementById("mobphono").value = "62" + phoneno;
+        }
+
+        phoneno = document.getElementById("mobphono").value;
+        if (phoneno.length < 11) {
+          document.getElementById("mobilePhoneNumErr").innerHTML =
+            "Harus minimal 11 karakter";
+          valid = false;
+        } else if (phoneno.length > 14) {
+          document.getElementById("mobilePhoneNumErr").innerHTML =
+            "Harus maksimal 14 karakter";
+          valid = false;
+        } else {
+          document.getElementById("mobilePhoneNumErr").innerHTML = "";
+          valid = true;
+        }
+
+        return valid;
+      }
+
+      function NIKValidation(input) {
+        var nikInput = input.value;
+        var nikErr = document.getElementById("nikErr");
+        if (nikInput.length !== 16) {
+          nikErr.textContent = "NIK harus terdiri dari 16 digit.";
+          nikErr.style.display = "block";
+          input.setAttribute("aria-invalid", "true"); // Set aria-invalid to true
+          input.setAttribute("aria-describedby", "nikErr"); // Set aria-describedby to the error message ID
+        } else {
+          nikErr.textContent = ""; // Clear error message
+          nikErr.style.display = "none";
+          input.setAttribute("aria-invalid", "false"); // Set aria-invalid back to false
+          input.removeAttribute("aria-describedby"); // Remove aria-describedby attribute
+        }
+      }
+      function PostalCodeValidation(input) {
+        var postalCodeInput = input.value;
+        var postalCodeErr = document.getElementById("postalCodeErr");
+        if (postalCodeInput.length !== 5) {
+          postalCodeErr.textContent = "Kode Pos harus terdiri dari 5 digit.";
+          postalCodeErr.style.display = "block";
+          input.setAttribute("aria-invalid", "true"); // Set aria-invalid to true
+          input.setAttribute("aria-describedby", "postalCodeErr"); // Set aria-describedby to the error message ID
+        } else {
+          postalCodeErr.textContent = ""; // Clear error message
+          postalCodeErr.style.display = "none";
+          input.setAttribute("aria-invalid", "false"); // Set aria-invalid back to false
+          input.removeAttribute("aria-describedby"); // Remove aria-describedby attribute
+        }
+      }
+
+      function NPWPValidation() {
+        var valid = false;
+        var npwp = document.getElementById("inputNPWP").value;
+
+        if (npwp.length < 16) {
+          document.getElementById("npwpErr").innerHTML = "Harus 16 karakter";
+          valid = false;
+        } else {
+          document.getElementById("npwpErr").innerHTML = "";
+          valid = true;
+        }
+
+        return valid;
+      }
+
+      function isDOBValid() {
+        var valid = false;
+        var dob = document.getElementById("dob").value;
+
+        if (parseInt(dob) > 0 && parseInt(dob) < 32) {
+          document.getElementById("dob").value = ("0" + dob).slice(-2);
+          document.getElementById("dobErr").innerHTML = "";
+          valid = true;
+        } else {
+          document.getElementById("dobErr").innerHTML =
+            "Tanggal harus antara 1 dan 31";
+          valid = false;
+        }
+
+        return valid;
+      }
+
+      function isYOBValid() {
+        const d = new Date();
+        var now_year = d.getFullYear();
+        var valid = false;
+        var yob = document.getElementById("yob").value;
+
+        if (yob.length < 4) {
+          document.getElementById("yobErr").innerHTML = "Harus 4 karakter";
+          valid = false;
+        } else if (now_year - parseInt(yob) < 17) {
+          document.getElementById("yobErr").innerHTML = "Tahun tidak sesuai";
+          valid = false;
+        } else {
+          document.getElementById("yobErr").innerHTML = "";
+          valid = true;
+        }
+        return valid;
+      }
+
+      function isOtherOccuValid() {
+        var valid = false;
+        var otherOcc = document.getElementById("other_occu").value;
+
+        if (otherOcc.length == 0 && form["occupation"].value == "-1") {
+          document.getElementById("otherOccupationErr").innerHTML =
+            "Jenis pekerjaan lainnya harus diisi";
+          valid = false;
+        } else {
+          document.getElementById("occupationErr").innerHTML = "";
+          document.getElementById("otherOccupationErr").innerHTML = "";
+          valid = true;
+        }
+
+        return valid;
+      }
+
+      $(document).ready(function () {
+        if (localStorage.getItem("NIK")) {
+          console.log("bener ada kok");
+          // Set nilai-nilai dari localStorage ke dalam elemen-elemen formulir
+          $("#citizenNo").val(localStorage.getItem("NIK"));
+          form["fullName"].value = localStorage.getItem("fullName");
+          form["livingAddress"].value = localStorage.getItem("livingAddress");
+          form["POB"].value = localStorage.getItem("pob");
+          form["mother_name"].value = localStorage.getItem("motherName");
+          form["RT"].value = localStorage.getItem("rt");
+          form["RW"].value = localStorage.getItem("rw");
+          form["province"].value = localStorage.getItem("provinceName");
+          form["kabupaten"].value = localStorage.getItem("kabupatenName");
+          form["kecamatan"].value = localStorage.getItem("kecamatanName");
+          form["kelurahan"].value = localStorage.getItem("kelurahanName");
+          form["postal_code"].value = localStorage.getItem("postalCode");
+          form["lastEdu"].value = localStorage.getItem("lastEducation");
+          form["marital"].value = localStorage.getItem("maritalStat");
+          form["religion"].value = localStorage.getItem("religion");
+          form["YOB"].value = localStorage.getItem("birthDate").substr(0, 4);
+          form["MOB"].value = localStorage.getItem("birthDate").substr(4, 2);
+          form["DOB"].value = localStorage.getItem("birthDate").substr(6, 2);
+          form["sex"].value = localStorage.getItem("sex");
+          form["other_occupation"].value =
+            localStorage.getItem("otherOccupation");
+          $("#occupation").val(localStorage.getItem("occupation"));
+        }
+        $(".select2").select2();
+
+        $("#nextBtn").click(function () {
+          var otherOccupation = "";
+          var birthDate = "";
+          let arrOccu = [];
+
+          let occu_val = $("#occupation").val();
+          if (occu_val) arrOccu = occu_val.split("~");
+
+          if (
+            (form["YOB"].value + form["MOB"].value + form["DOB"].value).length <
+            8
+          )
+            birthDate = "";
+          else
+            birthDate =
+              form["YOB"].value + form["MOB"].value + form["DOB"].value;
+
+          if (form["occupation"].value == "-1") {
+            if (!isOtherOccuValid()) return;
+            otherOccupation = form["other_occupation"].value.toUpperCase();
+          }
+
+          $("#nikErr").html("");
+          $("#fullNameErr").html("");
+          $("#livingAddressErr").html("");
+          $("#rtErr").html("");
+          $("#rwErr").html("");
+          $("#pobErr").html("");
+          $("#dobErr").html("");
+          $("#mobErr").html("");
+          $("#yobErr").html("");
+          $("#motherNameErr").html("");
+          $("#lastEduErr").html("");
+          $("#maritalErr").html("");
+          $("#religionErr").html("");
+          $("#occupationErr").html("");
+          $("#otherOccupationErr").html("");
+          $("#postalCodeErr").html("");
+          $("#referralCodeErr").html("");
+          $("#provinceErr").html("");
+          $("#kabupatenErr").html("");
+          $("#kecamatanErr").html("");
+          $("#kelurahanErr").html("");
+          $("#procErr").html("");
+          $("#nextBtn").attr("disabled", "disabled");
+
+          let NIK = form["NIK"].value.trim();
+          let fullName = form["fullName"].value.trim();
+          let livingAddress = form["livingAddress"].value.trim();
+          let pob = form["POB"].value.trim();
+          let mother_name = form["mother_name"].value.toUpperCase();
+          let rt = form["RT"].value;
+          let rw = form["RW"].value;
+          let province_name = form["province"].value;
+          let kabupaten_name = form["kabupaten"].value;
+          let kecamatan_name = form["kecamatan"].value;
+          let kelurahan_name = form["kelurahan"].value;
+          let postal_code = form["postal_code"].value;
+          let last_education = form["lastEdu"].value;
+          let marital_stat = form["marital"].value;
+          let religion = form["religion"].value;
+          let sex = form["sex"].value;
+
+          let isNIKValid = NIK !== "";
+          let isFullNameValid = fullName !== "";
+          let isLivingAddressValid = livingAddress !== "";
+          let isPobValid = pob !== "";
+          let isMotherNameValid = mother_name !== "";
+          let isRtValid = rt !== "";
+          let isRwValid = rw !== "";
+          let isBirhOfDate = birthDate !== "";
+          let isProvinceValid = province_name !== "";
+          let isKabupatenValid = kabupaten_name !== "";
+          let isKecamatanValid = kecamatan_name !== "";
+          let isKelurahanValid = kelurahan_name !== "";
+          let isPostalCodeValid = postal_code !== "";
+          let isLastEducationValid = last_education !== "";
+          let isOccuValid = occu_val !== null;
+          let isMaritalValid = marital_stat !== "";
+          let isReligion = religion !== "";
+
+          if (!isNIKValid) {
+            $("#nikErr").html("NIK tidak boleh kosong");
+          }
+          if (!isFullNameValid) {
+            $("#fullNameErr").html("Nama lengkap tidak boleh kosong");
+          }
+          if (!isLivingAddressValid) {
+            $("#livingAddressErr").html("Alamat tidak boleh kosong");
+          }
+          if (!isPobValid) {
+            $("#pobErr").html("Tempat lahir tidak boleh kosong");
+          }
+          if (!isMotherNameValid) {
+            $("#motherNameErr").html(
+              "Nama Gadis Ibu Kandung tidak boleh kosong"
+            );
+          }
+          if (!isRtValid) {
+            $("#rtErr").html("RT tidak boleh kosong");
+          }
+          if (!isRwValid) {
+            $("#rwErr").html("RW tidak boleh kosong");
+          }
+          if (!isBirhOfDate) {
+            $("#dobErr").html("Tanggal lahir tidak boleh kosong");
+          }
+          if (!isProvinceValid) {
+            $("#provinceErr").html("Provinsi tidak boleh kosong");
+          }
+          if (!isKabupatenValid) {
+            $("#kabupatenErr").html("Kabupaten / Kota tidak boleh kosong");
+          }
+          if (!isKecamatanValid) {
+            $("#kecamatanErr").html("Kecamatan tidak boleh kosong");
+          }
+          if (!isKelurahanValid) {
+            $("#kelurahanErr").html("Kelurahan tidak boleh kosong");
+          }
+          if (!isPostalCodeValid) {
+            $("#postalCodeErr").html("Kode Pos tidak boleh kosong");
+          }
+          if (!isLastEducationValid) {
+            $("#lastEduErr").html("Pendidikan terakhir tidak boleh kosong");
+          }
+          if (!isOccuValid) {
+            $("#occupationErr").html("Jenis Pekerjaan tidak boleh kosong");
+          }
+          if (!isMaritalValid) {
+            $("#maritalErr").html("Status Pernikahan tidak boleh kosong");
+          }
+          if (!isReligion) {
+            $("#religionErr").html("Agama tidak boleh kosong");
+          }
+
+          if (
+            !isNIKValid ||
+            !isFullNameValid ||
+            !isLivingAddressValid ||
+            !isPobValid ||
+            !isMotherNameValid ||
+            !isProvinceValid ||
+            !isKabupatenValid ||
+            !isKecamatanValid ||
+            !isKelurahanValid ||
+            !isPostalCodeValid ||
+            !isLastEducationValid ||
+            !isOccuValid ||
+            !isMaritalValid ||
+            !isReligion
+          ) {
+            $("#procErr").html("Mohon periksa kembali formulir Anda");
+            $("#nextBtn").removeAttr("disabled");
+          } else {
+            localStorage.setItem("NIK", NIK);
+            localStorage.setItem("fullName", fullName);
+            localStorage.setItem("livingAddress", livingAddress);
+            localStorage.setItem("pob", pob);
+            localStorage.setItem("motherName", mother_name);
+            localStorage.setItem("rt", rt);
+            localStorage.setItem("rw", rw);
+            localStorage.setItem("provinceName", province_name);
+            localStorage.setItem("kabupatenName", kabupaten_name);
+            localStorage.setItem("kecamatanName", kecamatan_name);
+            localStorage.setItem("kelurahanName", kelurahan_name);
+            localStorage.setItem("postalCode", postal_code);
+            localStorage.setItem("lastEducation", last_education);
+            localStorage.setItem("maritalStat", marital_stat);
+            localStorage.setItem("religion", religion);
+            localStorage.setItem("birthDate", birthDate);
+            localStorage.setItem("otherOccupation", otherOccupation);
+            localStorage.setItem("occupation", occu_val);
+            localStorage.setItem("sex", sex);
+
+            window.location.replace("/customer/info/2/update.html");
+          }
+        });
+
+        // form.reset();
+        // var dateBirth = "";
+
+        // var kelamin = "";
+        // var rt_rw = "".split("/");
+        // var occu = "".toUpperCase();
+
+        // form["NIK"].value = "";
+        // form["fullName"].value = "";
+        // setFormSelectDefVal(
+        //   form,
+        //   "sex",
+        //   kelamin.substr(0, 1).toUpperCase() + kelamin.substr(1),
+        //   "",
+        //   ""
+        // );
+        // if (kelamin == "perempuan") {
+        //   document.getElementById("female").checked = true;
+        // } else {
+        //   document.getElementById("male").checked = true;
+        // }
+        // form["livingAddress"].value = "";
+        // form["RT"].value = "";
+        // form["RW"].value = "";
+        // form["POB"].value = "";
+        // dateBirth = "";
+        // form["YOB"].value = dateBirth.slice(-4);
+        // setFormSelectDefVal(form, "MOB", dateBirth.substr(3, 2), "", "");
+        // form["DOB"].value = dateBirth.slice(0, 2);
+        // form["mother_name"].value = "";
+        // setFormSelectDefVal(form, "lastEdu", "", "", "");
+        // setFormSelectDefVal(form, "occupation", "", "other_occupation", "");
+        // setFormSelectDefVal(form, "marital", "", "", "");
+        // setFormSelectDefVal(form, "religion", "", "", "");
+        // setFormSelectDefVal2(form, "postal_code", "", "");
+        // setFormSelectDefVal(form, "province", "DKI JAKARTA", "", "");
+
+        // propinsi = "";
+        // kabupaten = "";
+        // kecamatan = "";
+        // kelurahan = "";
+
+        $("select#marital option").each(function () {
+          this.selected = this.text == "BELUM KAWIN";
+        });
+        $("select#religion option").each(function () {
+          this.selected = this.text == "ISLAM";
+        });
+        $("select#occupation option").each(function () {
+          this.selected = this.text == "";
+        });
+      });
+    </script>
+  </body>
+</html>

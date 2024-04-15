@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="assets/fav-icon.ico" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/openaccount/"
+        ><img src="/assets/img/brand/logo.png" alt="Logo Bank BTN"
+      /></a>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="content-header mt-3">
+        <h1>Data Pendapatan</h1>
+      </section>
+
+      <div class="row">
+        <div class="col">
+          <div class="box">
+            <div class="box-body">
+              <form id="formCustInfo" autocomplete="off">
+                <input
+                  type="hidden"
+                  name="csrfmiddlewaretoken"
+                  value="YbEbLgfmFWdEcXOeWX8YEk3LUjgH9OqO8MTMo5JCCQYAVf4HLTGYX99FuchnfDe6"
+                />
+
+                <div class="row mb-4">
+                  <div class="col-lg-6">
+                    <div class="form-group" style="position: relative">
+                      <label for="fund_src"
+                        >Sumber Dana
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        id="fund_src"
+                        class="form-control"
+                        name="fund_src"
+                        onchange="showOtherFld(this, 'other_fund_src')"
+                      >
+                        <option value="" disabled selected>
+                          --Sumber Dana--
+                        </option>
+
+                        <option value="1">Gaji</option>
+
+                        <option value="2">Hasil usaha</option>
+
+                        <option value="3">Investasi</option>
+
+                        <option value="-1">Lainnya</option>
+                      </select>
+                      <p id="fundSrcErr" class="text-danger"></p>
+                      <label
+                        style="position: absolute; visibility: hidden"
+                        for="lainnya"
+                        >lainnya</label
+                      >
+                      <input
+                        id="lainnya"
+                        type="text"
+                        class="form-control text-uppercase d-none"
+                        name="other_fund_src"
+                        placeholder="Sumber Dana Lainnya"
+                      />
+                      <p id="otherFundSrcErr" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="penghasilanBulanan"
+                        >Penghasilan Bulanan
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        id="penghasilanBulanan"
+                        class="form-control"
+                        name="monthly_income"
+                        onchange="showYearlyIncome(this)"
+                      >
+                        <option value="" disabled selected>
+                          --Penghasilan Bulanan--
+                        </option>
+
+                        <option value="1">Rp. 0 sd &lt; Rp. 1,000,000</option>
+
+                        <option value="2">
+                          Rp. 1,000,000 sd &lt; Rp. 5,000,000
+                        </option>
+
+                        <option value="3">
+                          Rp. 5,000,000 sd &lt; Rp. 10,000,000
+                        </option>
+
+                        <option value="4">
+                          Rp. 10,000,000 sd &lt; Rp. 25,000,000
+                        </option>
+
+                        <option value="5">&gt;= Rp. 25,000,000</option>
+                      </select>
+                      <p id="monthlyIncomeErr" class="text-danger"></p>
+                    </div>
+
+                    <div class="form-group">
+                      <p>Penghasilan Tahunan</p>
+                      <p id="yearlyIncomeText"></p>
+                    </div>
+                    <div class="form-group" style="position: relative">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="hasAddIncome"
+                        />
+                        <label class="form-check-label" for="hasAddIncome"
+                          >Penghasilan Tambahan</label
+                        >
+                      </div>
+                      <p id="hasAddIncomeErr" class="text-danger"></p>
+                      <label
+                        for="addIncomeInput"
+                        style="position: absolute; visibility: hidden"
+                        >tes</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control d-none"
+                        name="add_income"
+                        id="addIncomeInput"
+                        placeholder="Penghasilan Tambahan"
+                      />
+                      <p id="addIncomeErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="pembukaanRek"
+                        >Tujuan Pembukaan Rekening
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control"
+                        name="open_acc_purpose"
+                        id="pembukaanRek"
+                      >
+                        <option value="" disabled selected>
+                          --Tujuan Pembukaan Rekening--
+                        </option>
+
+                        <option value="1">Simpanan</option>
+
+                        <option value="2">Investasi</option>
+
+                        <option value="3">Pinjaman</option>
+                      </select>
+                      <p id="openAccPurposeErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="avg_yearly_tran"
+                        >Transaksi Rata-Rata Tahunan
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control"
+                        name="avg_yearly_tran"
+                        id="avg_yearly_tran"
+                      >
+                        <option value="" disabled selected>
+                          --Transaksi Rata-Rata Tahunan--
+                        </option>
+
+                        <option value="1">&lt; Rp 5 juta</option>
+
+                        <option value="2">Rp 5 juta sd &lt; 25 juta</option>
+
+                        <option value="3">Rp 25 juta sd &lt; 100 juta</option>
+
+                        <option value="4">Rp 100 juta sd &lt; 250 juta</option>
+
+                        <option value="5">Rp 250 juta sd &lt; 500 juta</option>
+
+                        <option value="6">&gt;= Rp 500 juta</option>
+                      </select>
+                      <p id="avgYearlyTranErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="lamaBekerja"
+                        >Lama Bekerja
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        id="lamaBekerja"
+                        class="form-control"
+                        name="working_time"
+                      >
+                        <option value="" disabled selected>
+                          --Lama Pekerjaan--
+                        </option>
+
+                        <option value="1">0 tahun sd &lt; 1 tahun</option>
+
+                        <option value="2">1 tahun sd &lt; 5 tahun</option>
+
+                        <option value="3">5 tahun sd &lt; 10 tahun</option>
+
+                        <option value="4">10 tahun sd &lt; 15 tahun</option>
+
+                        <option value="5">15 tahun sd &lt; 20 tahun</option>
+
+                        <option value="6">&gt;= 20 tahun</option>
+                      </select>
+                      <p id="workingTimeErr" class="text-danger"></p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label for="alamatKantor"
+                        >Alamat Kantor <strong class="text-danger">*</strong>
+                      </label>
+                      <input
+                        id="alamatKantor"
+                        type="text"
+                        class="form-control text-uppercase"
+                        name="work_addr"
+                        placeholder="Alamat Kantor"
+                      />
+                      <p id="workAddrErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label for="kodePosKantor"
+                        >Kode Pos Kantor
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="work_postal_code"
+                        id="kodePosKantor"
+                        placeholder="Kode Pos Kantor"
+                        onkeypress="return isNumberKey(event)"
+                        onblur="WorkPostalCodeValidation(this);"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                        aria-describedby="workPostalCodeErr"
+                        maxlength="16"
+                        aria-invalid="false"
+                      />
+                      <p
+                        id="workPostalCodeErr"
+                        class="text-danger"
+                        role="alert"
+                        aria-live="assertive"
+                      ></p>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="cmpphonearea"
+                            >Kode Area Telepon Kantor</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="cmpphonearea"
+                            name="company_phone_area_code"
+                            placeholder="Kode Area Telepon Kantor"
+                            maxlength="4"
+                            onblur="CompanyPhoneAreaValidation();"
+                            onkeypress="return isNumberKey(event)"
+                          />
+                          <p
+                            id="companyPhoneAreaCodeErr"
+                            class="text-danger"
+                          ></p>
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label for="cmpphoneno">Nomor Telepon Kantor</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="cmpphoneno"
+                            name="company_phone_num"
+                            placeholder="Nomor Telepon Kantor"
+                            maxlength="9"
+                            onblur="CompanyPhoneAreaValidation();"
+                            onkeypress="return isNumberKey(event)"
+                          />
+                          <p id="companyPhoneNumErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-check mb-2">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="politicallyExposedPerson"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="politicallyExposedPerson"
+                          >Termasuk Politically Exposed Person</label
+                        >
+                      </div>
+                      <p class="small-desc mb-0">
+                        Orang yang diberi kewenangan untuk melakukan fungsi
+                        penting (prominent function) oleh negara, seperti kepala
+                        negara atau pemerintahan, politisi senior, pejabat
+                        pemerintah senior, pejabat militer atau pejabat dibidang
+                        penegakan hukum, eksekutif senior pada perusahaan yang
+                        dimiliki oleh negara, pejabat penting dalam partai
+                        politik
+                      </p>
+                      <p
+                        id="politicallyExposedPersonErr"
+                        class="text-danger"
+                      ></p>
+                    </div>
+                    <div class="form-group" style="position: relative">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="hasForeignTax"
+                        />
+                        <label class="form-check-label" for="hasForeignTax"
+                          >Wajib Pajak Selain di Indonesia</label
+                        >
+                      </div>
+                      <p id="hasForeignTaxErr" class="text-danger"></p>
+                      <div id="foreignTaxBox" class="d-none">
+                        <div class="form-check" id="bornInUsBox">
+                          <input
+                            type="checkbox"
+                            class="form-check-input"
+                            id="bornInUs"
+                          />
+                          <label class="form-check-label" for="bornInUs"
+                            >Lahir di Amerika Serikat</label
+                          >
+                        </div>
+                        <p id="bornInUsErr" class="text-danger"></p>
+                        <label
+                          style="position: absolute; visibility: hidden"
+                          for="foreignTaxCountry"
+                          >kewajiban pajak</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control text-uppercase"
+                          name="foreign_tax_country"
+                          id="foreignTaxCountry"
+                          placeholder="Negara Kewajiban Pajak"
+                        />
+                        <p id="foreignTaxCountryErr" class="text-danger"></p>
+                        <label
+                          style="position: absolute; visibility: hidden"
+                          for="foreignTaxCountry"
+                          >Tax Identification Number</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="foreign_tax_id_num"
+                          id="foreignTaxIdNum"
+                          placeholder="Tax Identification Number"
+                        />
+                        <p id="foreignTaxIdNumErr" class="text-danger"></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="currAddrSameIdCard"
+                        />
+                        <label class="form-check-label" for="currAddrSameIdCard"
+                          >Alamat Domisili Sesuai dengan Alamat KTP
+                          <strong class="text-danger">*</strong></label
+                        >
+                      </div>
+                      <p id="currAddrSameIdCardErr" class="text-danger"></p>
+                      <div class="form-group">
+                        <label for="currAddrBox"
+                          >Kode Pos Domisili
+                          <strong class="text-danger">*</strong></label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="curr_addr"
+                          id="currAddrBox"
+                          placeholder="Kode Pos Domisili"
+                          onkeypress="return isNumberKey(event)"
+                          onblur="CurrPostalCodeValidation(this);"
+                          onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                          aria-describedby="currPostalCodeErr"
+                          maxlength="5"
+                          aria-invalid="false"
+                        />
+                        <p
+                          id="currPostalCodeErr"
+                          class="text-danger"
+                          role="alert"
+                          aria-live="assertive"
+                        ></p>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label
+                        >Status Tempat Tinggal
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select class="form-control" name="residence_status">
+                        <option value="" disabled selected>
+                          --Status Tempat Tinggal--
+                        </option>
+
+                        <option value="1">Milik Sendiri</option>
+
+                        <option value="2">Kontrak</option>
+
+                        <option value="3">Kos</option>
+
+                        <option value="4">Orang Tua</option>
+
+                        <option value="5">Dinas / Instansi</option>
+                      </select>
+                      <p id="residenceStatusErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col"><div class="border-top mb-4"></div></div>
+                </div>
+
+                <div class="row">
+                  <div class="col mb-4">
+                    <div class="title-text d-inline-block">
+                      Pihak yang Dapat Dihubungi Dalam Keadaan Darurat
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label>Nama <strong class="text-danger">*</strong></label>
+                      <input
+                        type="text"
+                        class="form-control text-uppercase"
+                        name="emg_name"
+                        placeholder="Nama"
+                      />
+                      <p id="emgNameErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label
+                        >Alamat <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control text-uppercase"
+                        name="emg_addr"
+                        placeholder="Alamat"
+                      />
+                      <p id="emgAddrErr" class="text-danger"></p>
+                    </div>
+                    <!-- <div class="form-group">
+                      <label
+                        >Kode Pos <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control select-postal-code"
+                        name="emg_postal_code"
+                      >
+                        <option value=""></option>
+                      </select>
+                      <p id="emgPostalCodeErr" class="text-danger"></p>
+                    </div> -->
+                    <div class="form-group">
+                      <label for="emgPostalCode"
+                        >Kode Pos <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="emg_postal_code"
+                        id="emgPostalCode"
+                        placeholder="Kode Pos"
+                        onkeypress="return isNumberKey(event)"
+                        onblur="EmgPostalCodeValidation(this);"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                        aria-describedby="emgPostalCodeErr"
+                        maxlength="5"
+                        aria-invalid="false"
+                      />
+                      <p
+                        id="emgPostalCodeErr"
+                        class="text-danger"
+                        role="alert"
+                        aria-live="assertive"
+                      ></p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="form-group">
+                      <label
+                        >Nomor Handphone
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="emgmobileno"
+                        name="emg_mobile_phone_num"
+                        placeholder="Nomor Handphone"
+                        maxlength="14"
+                        onkeypress="return isNumberKey(event)"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                      />
+                      <p id="emgMobilePhoneNumErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group">
+                      <label
+                        >Hubungan dengan Pemohon
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select class="form-control" name="emg_relation">
+                        <option value="" disabled selected>
+                          --Hubungan dengan Pemohon--
+                        </option>
+
+                        <option value="1">KELUARGA</option>
+
+                        <option value="2">SAHABAT</option>
+
+                        <option value="3">TEMAN KERJA</option>
+                      </select>
+                      <p id="emgRelationErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col-md-6 mx-auto text-center">
+                      <p id="procErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 col-sm-4 mx-auto">
+                      <button id="nextBtn" type="button" class="nicebtn w-100">
+                        Lanjut
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-danger"><em>* harus diisi</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="msgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="msgModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="msgModalText"></p>
+            <button
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-none">
+      <div id="mthInc1">Rp. 0 sd &lt; Rp. 12,000,000</div>
+
+      <div id="mthInc2">Rp. 12,000,000 sd &lt; Rp. 60,000,000</div>
+
+      <div id="mthInc3">Rp. 60,000,000 sd &lt; Rp. 120,000,000</div>
+
+      <div id="mthInc4">Rp. 120,000,000 sd &lt; Rp. 300,000,000</div>
+
+      <div id="mthInc5">&gt;= Rp. 300,000,000</div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="mdlErrFlow"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+      data-keyboard="false"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Tahapan Pembukaan Rekening Salah</h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Mohon maaf, tahapan pembukaan rekening Anda terjadi kesalahan.
+                  <br />
+                  Anda dapat melanjutkan tahapan pembukaan rekening menggunakan
+                  nomor referensi dan nomor handphone Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/openaccount/customer/continue"
+              role="button"
+              >OK</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionReminderModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionReminderModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sessionReminderModalLabel">
+              Session Segera Berakhir
+            </h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Session Anda akan segera habis dalam 5 menit. Segera lanjutkan
+                  pengisian data dan aktivitas Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              aria-label="Lanjut"
+            >
+              Lanjut
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionOverModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sessionOverModalLabel">
+              Session Berakhir
+            </h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Sesi Anda telah habis. Anda dapat melanjutkan pengisian data
+                  atau keluar dari proses pembukaan rekening
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/openaccount/customer/continue"
+              role="button"
+              >Lanjut</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="/openaccount/logout"
+              role="button"
+              >Keluar</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showSessionReminder() {
+        $("#sessionReminderModal").modal({
+          backdrop: "static",
+          keyboard: false,
+        });
+      }
+      var to1 = 600 * 1000;
+      var timeout1 = setTimeout(showSessionReminder, to1);
+
+      function showSessionOver() {
+        $("#sessionOverModal").modal({ backdrop: "static", keyboard: false });
+      }
+      var to2 = 900 * 1000;
+      var timeout2 = setTimeout(showSessionOver, to2);
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/autonumeric/4.10.5/autoNumeric.min.js"
+      integrity="sha512-EGJ6YGRXzV3b1ouNsqiw4bI8wxwd+/ZBN+cjxbm6q1vh3i3H19AJtHVaICXry109EVn4pLBGAwaVJLQhcazS2w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+      var isSyariah = 0;
+      var monthlyIncomeAmtInput;
+      var form = document.getElementById("formCustInfo");
+
+      function preventBack() {
+        window.history.forward();
+      }
+      setTimeout("preventBack()", 0);
+      window.onunload = function () {
+        null;
+      };
+
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+
+      function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+        return true;
+      }
+      function WorkPostalCodeValidation(input) {
+        var postalCodeInput = input.value;
+        var postalCodeErr = document.getElementById("workPostalCodeErr");
+        if (postalCodeInput.length !== 5) {
+          postalCodeErr.textContent = "Kode Pos harus terdiri dari 5 digit.";
+          postalCodeErr.style.display = "block";
+          input.setAttribute("aria-invalid", "true");
+          input.setAttribute("aria-describedby", "workPostalCodeErr");
+        } else {
+          postalCodeErr.textContent = "";
+          postalCodeErr.style.display = "none";
+          input.setAttribute("aria-invalid", "false");
+          input.removeAttribute("aria-describedby");
+        }
+      }
+      function EmgPostalCodeValidation(input) {
+        var postalCodeInput = input.value;
+        var postalCodeErr = document.getElementById("emgPostalCodeErr");
+        if (postalCodeInput.length !== 5) {
+          postalCodeErr.textContent = "Kode Pos harus terdiri dari 5 digit.";
+          postalCodeErr.style.display = "block";
+          input.setAttribute("aria-invalid", "true");
+          input.setAttribute("aria-describedby", "emgPostalCodeErr");
+        } else {
+          postalCodeErr.textContent = "";
+          postalCodeErr.style.display = "none";
+          input.setAttribute("aria-invalid", "false");
+          input.removeAttribute("aria-describedby");
+        }
+      }
+      function CurrPostalCodeValidation(input) {
+        var postalCodeInput = input.value;
+        var postalCodeErr = document.getElementById("currPostalCodeErr");
+        if (postalCodeInput.length !== 5) {
+          postalCodeErr.textContent = "Kode Pos harus terdiri dari 5 digit.";
+          postalCodeErr.style.display = "block";
+          input.setAttribute("aria-invalid", "true");
+          input.setAttribute("aria-describedby", "currPostalCodeErr");
+        } else {
+          postalCodeErr.textContent = "";
+          postalCodeErr.style.display = "none";
+          input.setAttribute("aria-invalid", "false");
+          input.removeAttribute("aria-describedby");
+        }
+      }
+
+      function CompanyPhoneAreaValidation() {
+        var valid = false;
+        var phonearea = document.getElementById("cmpphonearea").value;
+        var phoneno = document.getElementById("cmpphoneno").value;
+
+        if (phoneno.length > 0 || phonearea.length > 0) {
+          if (phonearea.length < 3) {
+            document.getElementById("companyPhoneAreaCodeErr").innerHTML =
+              "Harus minimal 3 karakter";
+            valid = false;
+          } else if (phonearea.length > 4) {
+            document.getElementById("companyPhoneAreaCodeErr").innerHTML =
+              "Harus maksimal 4 karakter";
+            valid = false;
+          } else {
+            document.getElementById("companyPhoneAreaCodeErr").innerHTML = "";
+          }
+
+          if (phoneno.length < 6) {
+            document.getElementById("companyPhoneNumErr").innerHTML =
+              "Harus minimal 6 karakter";
+            valid = false;
+          } else if (phoneno.length > 9) {
+            document.getElementById("companyPhoneNumErr").innerHTML =
+              "Harus maksimal 9 karakter";
+            valid = false;
+          } else {
+            document.getElementById("companyPhoneNumErr").innerHTML = "";
+          }
+
+          if (
+            document.getElementById("companyPhoneAreaCodeErr").innerHTML ==
+              "" &&
+            document.getElementById("companyPhoneNumErr").innerHTML == ""
+          ) {
+            valid = true;
+          }
+        } else {
+          document.getElementById("companyPhoneAreaCodeErr").innerHTML = "";
+          document.getElementById("companyPhoneNumErr").innerHTML = "";
+          valid = true;
+        }
+
+        return valid;
+      }
+
+      function MobilePhoneNoValidation() {
+        var valid = false;
+        var phoneno = document.getElementById("emgmobileno").value;
+
+        if (phoneno.substr(0, 1) == "0") {
+          document.getElementById("emgmobileno").value =
+            "62" + phoneno.substr(1, phoneno.length - 1);
+        } else if (phoneno.substr(0, 2) == "62") {
+          document.getElementById("emgmobileno").value = phoneno;
+        } else if (phoneno == "") {
+          document.getElementById("emgmobileno").value = "";
+        } else {
+          document.getElementById("emgmobileno").value = "62" + phoneno;
+        }
+
+        phoneno = document.getElementById("emgmobileno").value;
+        if (phoneno.length < 11) {
+          document.getElementById("emgMobilePhoneNumErr").innerHTML =
+            "Harus minimal 11 karakter";
+          valid = false;
+        } else if (phoneno.length > 14) {
+          document.getElementById("emgMobilePhoneNumErr").innerHTML =
+            "Harus maksimal 14 karakter";
+          valid = false;
+        } else {
+          document.getElementById("emgMobilePhoneNumErr").innerHTML = "";
+          valid = true;
+        }
+
+        return valid;
+      }
+
+      function showOtherFld(selObj, otherFldName) {
+        var selName = "[name=" + otherFldName + "]";
+
+        if (selObj.value == -1) $(selName).removeClass("d-none");
+        else $(selName).addClass("d-none");
+      }
+
+      function showYearlyIncome(elem) {
+        var tmpVal;
+
+        $("#yearlyIncomeText").html("");
+        if (isSyariah) {
+          tmpVal = parseInt(elem.getNumericString()) * 12;
+          tmpVal =
+            "RP " + tmpVal.toString().replace(/(.)(?=(\d{3})+$)/g, "$1,");
+          $("#yearlyIncomeText").html(tmpVal);
+        } else {
+          tmpVal = $("#mthInc" + elem.value).html();
+          if (tmpVal.length > 0) {
+            $("#yearlyIncomeText").html(tmpVal);
+          }
+        }
+      }
+
+      $(document).ready(function () {
+        let storedFormData = localStorage.getItem("formData");
+        let formData = JSON.parse(storedFormData);
+        if (formData) {
+          form["fund_src"].value = formData.fund_src;
+          form["monthly_income"].value = formData.monthlyIncomeVal;
+          form["open_acc_purpose"].value = formData.open_acc_purpose;
+          form["avg_yearly_tran"].value = formData.avg_yearly_tran;
+          form["working_time"].value = formData.working_time;
+          form["work_addr"].value = formData.work_addr;
+          form["work_postal_code"].value = formData.work_postal_code;
+          form["residence_status"].value = formData.residence_status;
+          form["emg_name"].value = formData.emg_name;
+          form["emg_addr"].value = formData.emg_addr;
+          form["emg_postal_code"].value = formData.emg_postal_code;
+          form["emg_mobile_phone_num"].value = formData.emg_mobile_phone_num;
+          form["emg_relation"].value = formData.emg_relation;
+          form["add_income"].value = formData.add_income;
+          document.getElementById("hasAddIncome").checked =
+            formData.hasAddIncome;
+          document.getElementById("politicallyExposedPerson").checked =
+            formData.politically_exposed_person;
+          document.getElementById("hasForeignTax").checked =
+            formData.has_foreign_tax;
+          document.getElementById("bornInUs").checked = formData.born_in_us;
+          form["foreign_tax_country"].value = formData.foreign_tax_country;
+          form["foreign_tax_id_num"].value = formData.foreign_tax_id_num;
+          form["company_phone_area_code"].value =
+            formData.company_phone_area_code;
+          form["company_phone_num"].value = formData.company_phone_num;
+          // form["curr_postal_code"].value = formData.curr_postal_code;
+          form["curr_addr"].value = formData.curr_addr;
+          document.getElementById("currAddrSameIdCard").checked =
+            formData.curr_addr_same_id_card;
+          form["other_fund_src"].value = formData.other_fund_src;
+        }
+        document.getElementById("hasAddIncome").checked
+          ? $("#addIncomeInput,#addIncomeErr").removeClass("d-none")
+          : $("#addIncomeInput,#addIncomeErr").addClass("d-none");
+
+        console.log(document.getElementById("hasForeignTax").checked);
+
+        document.getElementById("hasForeignTax").checked
+          ? $("#foreignTaxBox").removeClass("d-none")
+          : $("#foreignTaxBox").addClass("d-none");
+
+        console.log(document.getElementById("currAddrSameIdCard").checked);
+
+        document.getElementById("currAddrSameIdCard").checked
+          ? $("#currAddrBox").addClass("d-none")
+          : $("#currAddrBox").removeClass("d-none");
+
+        addIncomeInput = new AutoNumeric("#addIncomeInput", {
+          currencySymbol: "RP ",
+          decimalPlaces: 0,
+          minimumValue: "0",
+          onInvalidPaste: "truncate",
+        });
+
+        if (isSyariah == 1) {
+          monthlyIncomeAmtInput = new AutoNumeric("#monthlyIncomeAmtInput", {
+            currencySymbol: "RP ",
+            decimalPlaces: 0,
+            minimumValue: "0",
+            onInvalidPaste: "truncate",
+            emptyInputBehavior: "min",
+            styleRules: {
+              userDefined: [
+                {
+                  callback: (elem) => {
+                    showYearlyIncome(elem);
+                  },
+                },
+              ],
+            },
+          });
+        }
+
+        $("#hasAddIncome").change(function () {
+          if (this.checked) {
+            $("#addIncomeInput,#addIncomeErr").removeClass("d-none");
+          } else {
+            $("#addIncomeInput,#addIncomeErr").addClass("d-none");
+          }
+        });
+
+        $("#hasForeignTax").change(function () {
+          if (this.checked) {
+            $("#foreignTaxBox").removeClass("d-none");
+          } else {
+            $("#foreignTaxBox").addClass("d-none");
+          }
+        });
+
+        $("#currAddrSameIdCard").change(function () {
+          if (this.checked) {
+            $("#currAddrBox").addClass("d-none");
+          } else {
+            $("#currAddrBox").removeClass("d-none");
+          }
+        });
+
+        $("#nextBtn").click(function () {
+          var form = document.getElementById("formCustInfo");
+          var hasAddIncome = document.getElementById("hasAddIncome").checked;
+          var politicallyExposedPerson = document.getElementById(
+            "politicallyExposedPerson"
+          ).checked;
+          var hasForeignTax = document.getElementById("hasForeignTax").checked;
+          var currAddrSameIdCard =
+            document.getElementById("currAddrSameIdCard").checked;
+          var otherFundSrc = "";
+          var monthlyIncomeVal = "";
+          var monthlyIncomeAmt = "";
+          var addIncomeVal = "";
+          var bornInUs = "";
+          var foreignTaxCountry = "";
+          var foreignTaxIdNum = "";
+          var currAddr = "";
+          var currPostalCode = "";
+
+          if (!CompanyPhoneAreaValidation()) return;
+          //   if (!MobilePhoneNoValidation()) return;
+
+          $("#fundSrcErr").html("");
+          $("#monthlyIncomeErr").html("");
+          $("#monthlyIncomeAmtErr").html("");
+          $("#hasAddIncomeErr").html("");
+          $("#addIncomeErr").html("");
+          $("#openAccPurposeErr").html("");
+          $("#avgYearlyTranErr").html("");
+          $("#workingTimeErr").html("");
+          $("#workAddrErr").html("");
+          $("#workPostalCodeErr").html("");
+          $("#companyPhoneAreaCodeErr").html("");
+          $("#companyPhoneNumErr").html("");
+          $("#otherFundSrcErr").html("");
+          $("#emgNameErr").html("");
+          $("#emgAddrErr").html("");
+          $("#emgPostalCodeErr").html("");
+          $("#emgMobilePhoneNumErr").html("");
+          $("#emgRelationErr").html("");
+          $("#politicallyExposedPersonErr").html("");
+          $("#hasForeignTaxErr").html("");
+          $("#bornInUsErr").html("");
+          $("#foreignTaxCountryErr").html("");
+          $("#foreignTaxIdNumErr").html("");
+          $("#currAddrSameIdCardErr").html("");
+          $("#currAddrErr").html("");
+          $("#currPostalCodeErr").html("");
+          $("#residenceStatusErr").html("");
+          $("#procErr").html("");
+          //   $("#nextBtn").attr("disabled", "disabled");
+
+          if (form["fund_src"].value == "-1")
+            otherFundSrc = form["other_fund_src"].value.toUpperCase();
+          if (isSyariah == 1)
+            monthlyIncomeAmt = monthlyIncomeAmtInput.getNumericString();
+          else monthlyIncomeVal = form["monthly_income"].value;
+          if (hasAddIncome) hasAddIncome = "1";
+          else hasAddIncome = "0";
+          if (hasAddIncome == "1")
+            addIncomeVal = addIncomeInput.getNumericString();
+          if (politicallyExposedPerson) politicallyExposedPerson = "1";
+          else politicallyExposedPerson = "0";
+          if (hasForeignTax) hasForeignTax = "1";
+          else hasForeignTax = "0";
+          if (hasForeignTax == "1") {
+            if (document.getElementById("bornInUs").checked) bornInUs = "1";
+            else bornInUs = "0";
+            foreignTaxCountry = form["foreign_tax_country"].value;
+            foreignTaxIdNum = form["foreign_tax_id_num"].value;
+          }
+          if (currAddrSameIdCard) currAddrSameIdCard = "1";
+          else currAddrSameIdCard = "0";
+          if (currAddrSameIdCard == "0") {
+            currAddr = form["curr_addr"].value;
+            currPostalCode = form["curr_postal_code"].value;
+          }
+
+          let fund_src = form["fund_src"].value;
+          let open_acc_purpose = form["open_acc_purpose"].value;
+          let avg_yearly_tran = form["avg_yearly_tran"].value;
+          let working_time = form["working_time"].value;
+          let work_addr = form["work_addr"].value;
+          let work_postal_code = form["work_postal_code"].value;
+          let residence_status = form["residence_status"].value;
+          let emg_name = form["emg_name"].value;
+          let emg_addr = form["emg_addr"].value;
+          let emg_postal_code = form["emg_postal_code"].value;
+          let emg_mobile_phone_num = form["emg_mobile_phone_num"].value;
+          let emg_relation = form["emg_relation"].value;
+
+          if (fund_src === "") {
+            $("#fundSrcErr").html("Sumber Dana tidak boleh kosong");
+          }
+          if (monthlyIncomeVal === "") {
+            $("#monthlyIncomeErr").html(
+              "Penghasilan Bulanan tidak boleh kosong"
+            );
+          }
+          if (open_acc_purpose === "") {
+            $("#openAccPurposeErr").html(
+              "Penghasilan Bulanan tidak boleh kosong"
+            );
+          }
+          if (avg_yearly_tran === "") {
+            $("#avgYearlyTranErr").html(
+              "Penghasilan Bulanan tidak boleh kosong"
+            );
+          }
+          if (working_time === "") {
+            $("#workingTimeErr").html("Lama Bekerja tidak boleh kosong");
+          }
+          if (work_addr === "") {
+            $("#workAddrErr").html("Alamat Kantor tidak boleh kosong");
+          }
+          if (work_postal_code === "") {
+            $("#workPostalCodeErr").html("Kode Pos Kantor tidak boleh kosong");
+          }
+          if (currAddrSameIdCard === "0" && !residence_status) {
+            $("#currPostalCodeErr").html(
+              "Kode Pos Domisili tidak boleh kosong"
+            );
+          }
+          if (!residence_status) {
+            $("#residenceStatusErr").html(
+              "Status tempat tinggal tidak boleh kosong"
+            );
+          }
+          if (emg_name === "") {
+            $("#emgNameErr").html("Nama tidak boleh kosong");
+          }
+          if (emg_addr === "") {
+            $("#emgAddrErr").html("Alamat tidak boleh kosong");
+          }
+          if (emg_postal_code === "") {
+            $("#emgPostalCodeErr").html("Kode Pos tidak boleh kosong");
+          }
+          if (emg_mobile_phone_num === "") {
+            $("#emgMobilePhoneNumErr").html(
+              "Nomor Handphone tidak boleh kosong"
+            );
+          }
+          if (emg_relation === "") {
+            $("#emgRelationErr").html(
+              "Hubungan dengan pemohon tidak boleh kosong"
+            );
+          }
+
+          if (
+            fund_src === "" ||
+            monthlyIncomeVal === "" ||
+            open_acc_purpose === "" ||
+            avg_yearly_tran === "" ||
+            working_time === "" ||
+            work_addr === "" ||
+            emg_postal_code === "" ||
+            work_postal_code === "" ||
+            (currAddrSameIdCard === "0" && !residence_status) ||
+            !residence_status ||
+            emg_name === "" ||
+            emg_addr === "" ||
+            emg_mobile_phone_num === "" ||
+            emg_relation === ""
+          ) {
+            $("#procErr").html("Mohon periksa kembali formulir Anda");
+            $("#nextBtn").removeAttr("disabled");
+          } else {
+            var formData = {
+              fund_src: form["fund_src"].value,
+              monthlyIncomeVal: form["monthly_income"].value,
+              open_acc_purpose: form["open_acc_purpose"].value,
+              avg_yearly_tran: form["avg_yearly_tran"].value,
+              working_time: form["working_time"].value,
+              work_addr: form["work_addr"].value,
+              work_postal_code: form["work_postal_code"].value,
+              residence_status: form["residence_status"].value,
+              emg_name: form["emg_name"].value,
+              emg_addr: form["emg_addr"].value,
+              emg_postal_code: form["emg_postal_code"].value,
+              emg_mobile_phone_num: form["emg_mobile_phone_num"].value,
+              emg_relation: form["emg_relation"].value,
+              hasAddIncome: hasAddIncome,
+              add_income: addIncomeVal,
+              politically_exposed_person: politicallyExposedPerson,
+              has_foreign_tax: document.getElementById("hasForeignTax").checked,
+              born_in_us: bornInUs,
+              foreign_tax_country: foreignTaxCountry.toUpperCase(),
+              foreign_tax_id_num: foreignTaxIdNum,
+              monthly_income_amt: monthlyIncomeAmt,
+              company_phone_area_code: form["company_phone_area_code"].value,
+              company_phone_num: form["company_phone_num"].value,
+              other_fund_src: otherFundSrc,
+              curr_addr_same_id_card: currAddrSameIdCard,
+              curr_addr: currAddr.toUpperCase(),
+              curr_postal_code: currPostalCode,
+            };
+            localStorage.setItem("formData", JSON.stringify(formData));
+            window.location.replace("/customer/info/3/update.html");
+          }
+
+          //   $.post({
+          //     url: "/openaccount/customer/info-2/proc",
+          //     data: {
+          //       csrfmiddlewaretoken: csrfToken,
+          //       fund_src: form["fund_src"].value,
+          //       monthly_income: monthlyIncomeVal,
+          //       monthly_income_amt: monthlyIncomeAmt,
+          //       has_add_income: hasAddIncome,
+          //       add_income: addIncomeVal,
+          //       open_acc_purpose: form["open_acc_purpose"].value,
+          //       avg_yearly_tran: form["avg_yearly_tran"].value,
+          //       working_time: form["working_time"].value,
+          //       work_addr: form["work_addr"].value.toUpperCase(),
+          //       work_postal_code: form["work_postal_code"].value,
+          //       company_phone_area_code: form["company_phone_area_code"].value,
+          //       company_phone_num: form["company_phone_num"].value,
+          //       other_fund_src: otherFundSrc,
+          //       emg_name: form["emg_name"].value.toUpperCase(),
+          //       emg_addr: form["emg_addr"].value.toUpperCase(),
+          //       emg_postal_code: form["emg_postal_code"].value,
+          //       emg_mobile_phone_num: form["emg_mobile_phone_num"].value,
+          //       emg_relation: form["emg_relation"].value,
+          //       politically_exposed_person: politicallyExposedPerson,
+          //       has_foreign_tax: hasForeignTax,
+          //       born_in_us: bornInUs,
+          //       foreign_tax_country: foreignTaxCountry.toUpperCase(),
+          //       foreign_tax_id_num: foreignTaxIdNum,
+          //       curr_addr_same_id_card: currAddrSameIdCard,
+          //       curr_addr: currAddr.toUpperCase(),
+          //       curr_postal_code: currPostalCode,
+          //       residence_status: form["residence_status"].value,
+          //     },
+          //   })
+          //     .done(function (data) {
+          //       if (data.success == 1) {
+          //         if (form["fund_src"].value == "-1") {
+          //           window.location = "/openaccount/bo/mobile-phone/verify";
+          //         } else {
+          //           window.location.replace(
+          //             "/openaccount/customer/e-channel/regis"
+          //           );
+          //         }
+          //       } else {
+          //         if (data.error) {
+          //           const arrError = data.error.split("-");
+          //           if (arrError[0].trim() == 2) $("#mdlErrFlow").modal();
+          //         }
+          //         $("#fundSrcErr").html(data.fund_src_err);
+          //         $("#monthlyIncomeErr").html(data.monthly_income_err);
+          //         $("#monthlyIncomeAmtErr").html(data.monthly_income_amt_err);
+          //         $("#hasAddIncomeErr").html(data.has_add_income_err);
+          //         $("#addIncomeErr").html(data.add_income_err);
+          //         $("#openAccPurposeErr").html(data.open_acc_purpose_err);
+          //         $("#avgYearlyTranErr").html(data.avg_yearly_tran_err);
+          //         $("#workingTimeErr").html(data.working_time_err);
+          //         $("#workAddrErr").html(data.work_addr_err);
+          //         $("#workPostalCodeErr").html(data.work_postal_code_err);
+          //         $("#companyPhoneAreaCodeErr").html(
+          //           data.company_phone_area_code_err
+          //         );
+          //         $("#companyPhoneNumErr").html(data.company_phone_num_err);
+          //         $("#otherFundSrcErr").html(data.other_fund_src_err);
+          //         $("#emgNameErr").html(data.emg_name_err);
+          //         $("#emgAddrErr").html(data.emg_addr_err);
+          //         $("#emgPostalCodeErr").html(data.emg_postal_code_err);
+          //         $("#emgMobilePhoneNumErr").html(data.emg_mobile_phone_num_err);
+          //         $("#emgRelationErr").html(data.emg_relation_err);
+          //         $("#politicallyExposedPersonErr").html(
+          //           data.politically_exposed_person_err
+          //         );
+          //         $("#hasForeignTaxErr").html(data.has_foreign_tax_err);
+          //         $("#bornInUsErr").html(data.born_in_us_err);
+          //         $("#foreignTaxCountryErr").html(data.foreign_tax_country_err);
+          //         $("#foreignTaxIdNumErr").html(data.foreign_tax_id_num_err);
+          //         $("#currAddrSameIdCardErr").html(
+          //           data.curr_addr_same_id_card_err
+          //         );
+          //         $("#currAddrErr").html(data.curr_addr_err);
+          //         $("#currPostalCodeErr").html(data.curr_postal_code_err);
+          //         $("#residenceStatusErr").html(data.residence_status_err);
+          //         $("#procErr").html(data.error);
+          //         $("#nextBtn").removeAttr("disabled");
+          //       }
+          //     })
+          //     .fail(function (xhrObj, textStatus, errorThrown) {
+          //       $("#procErr").html(getCommonErrStr(errorThrown));
+          //       $("#nextBtn").removeAttr("disabled");
+          //     });
+        });
+
+        function formatPostalCodeSelection(postalCode) {
+          if (!postalCode.id) {
+            return postalCode.text;
+          }
+          return postalCode.text;
+        }
+
+        $(".select-postal-code").select2({
+          language: "id",
+          placeholder: "Pilih kode pos",
+          minimumInputLength: 3,
+          allowClear: true,
+          templateSelection: formatPostalCodeSelection,
+          data: [
+            {
+              id: "13880 - TESSS",
+              text: "13880 - TESSS",
+            },
+          ],
+        });
+
+        // var formObj = document.getElementById("formCustInfo");
+        // formObj.reset();
+      });
+    </script>
+  </body>
+</html>

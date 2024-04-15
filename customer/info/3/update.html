@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="icon" href="assets/fav-icon.ico" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/openaccount/"
+        ><img src="/assets/img/brand/logo.png" alt="Logo Bank BTN"
+      /></a>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="content-header mt-3">
+        <h1>Registrasi E-Channel</h1>
+      </section>
+
+      <div class="row">
+        <div class="col">
+          <div class="box">
+            <div class="box-body">
+              <form id="formRegisEChannel" autocomplete="off">
+                <input
+                  type="hidden"
+                  name="csrfmiddlewaretoken"
+                  value="GDATYEVFOccrSeODfAexWbiHbxezq9jkQePuBtpVL6XnBw464wMxf0oBLqffwY7C"
+                />
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <p>E-Channel <strong class="text-danger">*</strong></p>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="mobileBanking"
+                        />
+                        <label class="form-check-label" for="mobileBanking"
+                          >Mobile Banking</label
+                        >
+                      </div>
+                      <p id="mobileBankingErr" class="text-danger"></p>
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          class="form-check-input"
+                          id="inetBanking"
+                        />
+                        <label class="form-check-label" for="inetBanking"
+                          >Internet Banking</label
+                        >
+                      </div>
+                      <p id="inetBankingErr" class="text-danger"></p>
+
+                      <p>
+                        Demi kemudahan untuk bertransaksi, Nasabah yang
+                        mendaftar melalui pembukaan tabungan online diwajibkan
+                        memilih minimal satu antara Mobile Banking dan Internet
+                        Banking. Untuk informasi produk,
+                        <a href="/openaccount/info-echannel/1" target="_blank">
+                          klik disini.</a
+                        >
+                      </p>
+
+                      <br />
+                      <div class="form-group">
+                        <label for="drop_sms">SMS Notifikasi </label>
+                        <select
+                          class="form-control"
+                          id="drop_sms"
+                          name="sms_notif_rule"
+                        >
+                          <option value="">PILIH SMS NOTIFIKASI</option>
+
+                          <option value="1">Transaksi &gt; 50,000</option>
+
+                          <option value="2">Transaksi &gt; 100,000</option>
+
+                          <option value="3">Transaksi &gt; 500,000</option>
+
+                          <option value="4">Transaksi &gt; 1,000,000</option>
+                        </select>
+                        <p id="smsNotifRuleErr" class="text-danger"></p>
+                      </div>
+
+                      <p>
+                        Untuk informasi produk lebih lanjut, silakan
+                        <a href="/openaccount/info-echannel/1" target="_blank">
+                          klik disini.</a
+                        >
+                      </p>
+
+                      <br />
+
+                      <div class="form-group">
+                        <label for="acc_branch_office"
+                          >Kantor Cabang / Outlet Pembentukan Rekening
+                          <strong class="text-danger">*</strong></label
+                        >
+
+                        <select
+                          class="form-control select2"
+                          name="acc_branch_office"
+                          id="acc_branch_office"
+                        >
+                          <option value="" disabled selected>
+                            PILIH KANTOR CABANG
+                          </option>
+                          <option value="1">Gaji</option>
+
+                          <option value="2">Hasil usaha</option>
+
+                          <option value="3">Investasi</option>
+
+                          <option value="-1">Lainnya</option>
+                        </select>
+
+                        <p id="accBranchOfficeErr" class="text-danger"></p>
+                        <div id="accBranchOfficeInfoBox" class="d-none">
+                          <p
+                            id="accBranchOfficeInfoAddrPhoneNum"
+                            class="mb-0"
+                          ></p>
+                          <a
+                            id="accBranchOfficeMapLink"
+                            class="nicelink"
+                            href=""
+                            target="_blank"
+                            >Lihat Peta</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="card_deliv"
+                        >Pengiriman Kartu ATM
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <select
+                        class="form-control"
+                        name="card_deliv"
+                        id="card_deliv"
+                        onchange="showOtherFld(this)"
+                      >
+                        <option value="" disabled selected>
+                          --Pengiriman Kartu ATM--
+                        </option>
+
+                        <option value="1">Dikirim ke alamat KTP</option>
+
+                        <option value="2">Dikirim ke alamat kantor</option>
+
+                        <option value="3">Dikirim ke alamat domisili</option>
+
+                        <option value="4">Diambil di outlet BTN</option>
+                      </select>
+                      <p id="cardDelivErr" class="text-danger"></p>
+                    </div>
+                    <div class="form-group d-none" id="addBranchOfficeFld">
+                      <select class="form-control" name="branch_office">
+                        <option value=""></option>
+                      </select>
+
+                      <p id="branchOfficeErr" class="text-danger"></p>
+                      <div id="branchOfficeInfoBox" class="d-none">
+                        <p id="branchOfficeInfoAddrPhoneNum" class="mb-0"></p>
+                        <a
+                          id="branchOfficeMapLink"
+                          class="nicelink"
+                          href=""
+                          target="_blank"
+                          >Lihat Peta</a
+                        >
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="CardDesign"
+                            >Desain Kartu ATM
+                            <strong class="text-danger">*</strong></label
+                          >
+                          <select
+                            class="form-control"
+                            id="CardDesign"
+                            name="card_design"
+                          >
+                            <option value="" disabled selected>
+                              --Desain Kartu ATM--
+                            </option>
+
+                            <option value="1">BTN Gold Online</option>
+                          </select>
+                          <p id="cardDesignErr" class="text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                          <label for="EmbossName">Nama Pada Kartu ATM</label>
+                          <input
+                            type="text"
+                            style="text-transform: uppercase"
+                            class="form-control"
+                            name="emboss_name"
+                            id="EmbossName"
+                            placeholder="Nama Pada Kartu ATM"
+                          />
+                          <p id="cardNameEmbossErr" class="text-danger"></p>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <img
+                          id="cardimage"
+                          src=""
+                          width="200"
+                          style="display: none"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <div class="row">
+                <div class="col">
+                  <div class="row">
+                    <div class="col-md-6 mx-auto text-center">
+                      <p id="procErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-2 col-sm-4 mx-auto">
+                      <button id="nextBtn" type="button" class="nicebtn w-100">
+                        Lanjut
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-danger"><em>* harus diisi</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="msgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="msgModalText"></p>
+            <button
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="mdlErrFlow"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+      data-keyboard="false"
+      data-backdrop="static"
+    >
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 style="font-size: 20px" class="modal-title">
+              Tahapan Pembukaan Rekening Salah
+            </h2>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Mohon maaf, tahapan pembukaan rekening Anda terjadi kesalahan.
+                  <br />
+                  Anda dapat melanjutkan tahapan pembukaan rekening menggunakan
+                  nomor referensi dan nomor handphone Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/openaccount/customer/continue"
+              role="button"
+              >OK</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionReminderModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionReminderModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sessionReminderModalLabel">
+              Session Segera Berakhir
+            </h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Session Anda akan segera habis dalam 5 menit. Segera lanjutkan
+                  pengisian data dan aktivitas Anda.
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-dismiss="modal"
+              aria-label="Lanjut"
+            >
+              Lanjut
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="sessionOverModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="sessionOverModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="sessionOverModalLabel">
+              Session Berakhir
+            </h5>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="row">
+                <div class="col text-center">
+                  Sesi Anda telah habis. Anda dapat melanjutkan pengisian data
+                  atau keluar dari proses pembukaan rekening
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <a
+              class="btn btn-primary"
+              href="/openaccount/customer/continue"
+              role="button"
+              >Lanjut</a
+            >
+            <a
+              class="btn btn-secondary"
+              href="/openaccount/logout"
+              role="button"
+              >Keluar</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showSessionReminder() {
+        $("#sessionReminderModal").modal({
+          backdrop: "static",
+          keyboard: false,
+        });
+      }
+      var to1 = 600 * 1000;
+      var timeout1 = setTimeout(showSessionReminder, to1);
+
+      function showSessionOver() {
+        $("#sessionOverModal").modal({ backdrop: "static", keyboard: false });
+      }
+      var to2 = 900 * 1000;
+      var timeout2 = setTimeout(showSessionOver, to2);
+    </script>
+
+    <script>
+      var csrfToken = $("[name=csrfmiddlewaretoken]").val();
+      var CURR_ADDR = "3";
+      var BRANCH_OFFICE = "4";
+      var is_syariah = "0";
+      var firstTime = false;
+
+      function preventBack() {
+        window.history.forward();
+      }
+      setTimeout("preventBack()", 0);
+      window.onunload = function () {
+        null;
+      };
+
+      history.pushState(null, null, location.href);
+      window.onpopstate = function () {
+        history.go(1);
+      };
+
+      $(".select2").select2();
+
+      function showOtherFld(selObj) {
+        $("#addBranchOfficeFld").addClass("d-none");
+        if (selObj.value == BRANCH_OFFICE) {
+          $("#addBranchOfficeFld").removeClass("d-none");
+          if (!firstTime) {
+            initCardDelivBrOfficeSelect();
+            firstTime = true;
+          }
+        }
+      }
+
+      // function showBrOffInfo(
+      //   infoBoxId,
+      //   infoAddrPhoneNumId,
+      //   mapLinkId,
+      //   addr,
+      //   phoneNum,
+      //   mapLink
+      // ) {
+      //   if (addr.length <= 0) {
+      //     $("#" + infoBoxId).addClass("d-none");
+      //     $("#" + infoAddrPhoneNumId).html("");
+      //     $("#" + mapLinkId).attr("href", "");
+      //   } else {
+      //     $("#" + infoBoxId).removeClass("d-none");
+      //     $("#" + infoAddrPhoneNumId).html(
+      //       addr + "<br>Nomor Telepon " + phoneNum
+      //     );
+      //     $("#" + mapLinkId).attr("href", mapLink);
+      //   }
+      // }
+
+      function LoadImage(obj) {
+        index = obj.selectedIndex;
+        if (index < 1) {
+          return;
+        }
+        strImg = obj.value.split(";;");
+        document.getElementById("cardimage").style.display = "block";
+        document.getElementById("cardimage").src = strImg[1];
+      }
+
+      function setDefCardDesign(formObj, optId) {
+        var tmpElem = formObj["card_design"];
+        var tmpVal;
+        for (i = 0; i < tmpElem.options.length; i++) {
+          tmpVal = tmpElem.options[i].value;
+          if (tmpVal.length <= 0) {
+            continue;
+          }
+          tmpVal = tmpVal.split(";;");
+          if (tmpVal.length == 2 && tmpVal[0] == optId) {
+            tmpElem.options.selectedIndex = i;
+            $(tmpElem).trigger("change");
+            break;
+          }
+        }
+      }
+
+      function initCardDelivBrOfficeSelect() {
+        $("[name=branch_office]").select2({
+          ajax: {
+            url: "/openaccount/branch-office/card-delivery",
+            method: "post",
+            delay: 250,
+            data: function (params) {
+              return {
+                csrfmiddlewaretoken: csrfToken,
+                filter_query: params.term,
+              };
+            },
+            processResults: function (data, params) {
+              params.page = params.page || 1;
+              return {
+                results: data.results,
+              };
+            },
+            cache: true,
+          },
+          language: "id",
+          placeholder: "Pilih outlet",
+          minimumInputLength: 3,
+          allowClear: true,
+          templateSelection: function (rec) {
+            return rec.text;
+          },
+        });
+
+        // $("[name=branch_office]").on("select2:select", function (e) {
+        //   showBrOffInfo(
+        //     "branchOfficeInfoBox",
+        //     "branchOfficeInfoAddrPhoneNum",
+        //     "branchOfficeMapLink",
+        //     e.params.data.branch_address,
+        //     e.params.data.phone_no,
+        //     e.params.data.map_link
+        //   );
+        // });
+
+        // $("[name=branch_office]").on("select2:clear", function (e) {
+        //   showBrOffInfo(
+        //     "branchOfficeInfoBox",
+        //     "branchOfficeInfoAddrPhoneNum",
+        //     "branchOfficeMapLink",
+        //     "",
+        //     "",
+        //     ""
+        //   );
+        // });
+      }
+
+      $(document).ready(function () {
+        var form = document.getElementById("formRegisEChannel");
+        var channelRegis = localStorage.getItem("channelRegis");
+        if (channelRegis) {
+          // Mengisi field-form dengan data dari localStorage
+          var data = JSON.parse(channelRegis);
+          form["sms_notif_rule"].value = data.sms_notif_rule;
+          // document.getElementById("acc_branch_office").value =
+          //   data.acc_branch_office;
+          document.getElementById("mobileBanking").checked = data.m_banking;
+          document.getElementById("inetBanking").checked = data.inet_banking;
+          document.getElementById("CardDesign").value = data.card_design;
+          document.getElementById("EmbossName").value = data.emboss_name;
+        }
+        $("#nextBtn").click(function () {
+          var form = document.getElementById("formRegisEChannel");
+          var atmCard = form["card_deliv"] != undefined;
+          var cardDeliv = "";
+          var branchOffice = "";
+          var CardDesign = "";
+          var embossName = "";
+
+          // $("#nextBtn").attr("disabled", "disabled");
+          $("#mobileBankingErr").html("");
+          $("#inetBankingErr").html("");
+          $("#smsNotifRuleErr").html("");
+          $("#accBranchOfficeErr").html("");
+          $("#procErr").html("");
+
+          if (atmCard) {
+            $("#cardDelivErr").html("");
+            $("#branchOfficeErr").html("");
+            $("#cardDesignErr").html("");
+            $("#cardNameEmbossErr").html("");
+          }
+
+          if (atmCard) {
+            cardDeliv = form["card_deliv"].value;
+            if (form["card_deliv"].value == BRANCH_OFFICE) {
+              branchOffice = form["branch_office"].value;
+            }
+            strImg = document.getElementById("CardDesign").value.split(";;");
+            CardDesign = strImg[0];
+            embossName = form["emboss_name"].value.toUpperCase();
+          }
+
+          if (is_syariah == "1") {
+            if (document.getElementById("drop_sms").value == "") {
+              document.getElementById("smsNotifRuleErr").innerHTML =
+                "SMS Notifikasi harus dipilih";
+              $("#nextBtn").removeAttr("disabled");
+              return;
+            }
+          } else {
+            if (
+              document.getElementById("mobileBanking").checked == false &&
+              document.getElementById("inetBanking").checked == false
+            ) {
+              document.getElementById("inetBankingErr").innerHTML =
+                "Harus pilih salah satu e-channel";
+              $("#nextBtn").removeAttr("disabled");
+              return;
+            } else {
+            }
+          }
+          let sms_notif_rule = form["sms_notif_rule"].value;
+          let acc_branch_office = form["acc_branch_office"].value;
+          // let branch_office = branchOffice;
+          let m_banking = Number(
+            document.getElementById("mobileBanking").checked
+          );
+          let inet_banking = Number(
+            document.getElementById("inetBanking").checked
+          );
+          let card_design = CardDesign;
+          let emboss_name = embossName;
+          console.log(sms_notif_rule, "ini sms");
+          console.log(acc_branch_office, "kantor cabang");
+          console.log(m_banking, "m-banking");
+          console.log(inet_banking, "internet banking");
+          console.log(card_design, "desain kartu");
+          console.log(emboss_name, "nama kartunya");
+          if (sms_notif_rule === "") {
+            $("#smsNotifRuleErr").html("SMS Notifikasi tidak boleh kosong");
+          }
+
+          if (
+            sms_notif_rule === "" ||
+            m_banking === "" ||
+            inet_banking === ""
+          ) {
+            $("#procErr").html("Mohon periksa kembali formulir Anda");
+            $("#nextBtn").removeAttr("disabled");
+          } else {
+            let channelRegis = {
+              sms_notif_rule: form["sms_notif_rule"].value,
+              acc_branch_office: form["acc_branch_office"].value,
+              m_banking: Number(
+                document.getElementById("mobileBanking").checked
+              ),
+              inet_banking: Number(
+                document.getElementById("inetBanking").checked
+              ),
+              card_design: CardDesign,
+              emboss_name: embossName,
+            };
+            localStorage.setItem("channelRegis", JSON.stringify(channelRegis));
+            window.location.replace("/customer/preview/index.html");
+          }
+        });
+
+        // $("[name=acc_branch_office]").on("select2:select", function (e) {
+        //   showBrOffInfo(
+        //     "accBranchOfficeInfoBox",
+        //     "accBranchOfficeInfoAddrPhoneNum",
+        //     "accBranchOfficeMapLink",
+        //     e.params.data.branch_address,
+        //     e.params.data.phone_no,
+        //     e.params.data.map_link
+        //   );
+        // });
+
+        // $("[name=acc_branch_office]").on("select2:clear", function (e) {
+        //   showBrOffInfo(
+        //     "accBranchOfficeInfoBox",
+        //     "accBranchOfficeInfoAddrPhoneNum",
+        //     "accBranchOfficeMapLink",
+        //     "",
+        //     "",
+        //     ""
+        //   );
+        // });
+
+        var formObj = document.getElementById("formRegisEChannel");
+        // formObj.reset();
+        $("#formRegisEChannel").submit(function (ev) {
+          ev.preventDefault();
+        });
+      });
+    </script>
+  </body>
+</html>

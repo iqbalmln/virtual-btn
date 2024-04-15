@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="BTN" />
+    <meta name="author" content="BTN" />
+    <title>BTN Sahabat Keluarga Indonesia</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/font.awesome.min.css" />
+    <link rel="stylesheet" href="/css/select2.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="/css/datepicker.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/select2.min.js"></script>
+    <script src="/js/i18n/id.js"></script>
+    <script src="/js/app.js"></script>
+
+    <script src="/js/forge.min.js"></script>
+    <script src="/js/datepicker.min.js"></script>
+    <script src="/js/datepicker.en.js"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand mr-auto" href="/openaccount/"
+        ><img src="/assets/img/brand/logo.png" alt=""
+      /></a>
+    </nav>
+
+    <div class="container-fluid">
+      <section class="content-header mt-3">
+        <h1>Melanjutkan Pembukaan Rekening</h1>
+      </section>
+
+      <div class="row">
+        <div class="col">
+          <div class="box">
+            <div class="box-body">
+              <form id="formContinueOpenAcc">
+                <input type="hidden" />
+                <div class="row">
+                  <div class="col-lg-6 col-md-8 mx-auto">
+                    <div class="form-group">
+                      <label
+                        >Nomor Referensi
+                        <em class="text-danger">* (Cek Email Anda)</em></label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="ref_no"
+                        placeholder="Nomor Referensi"
+                        maxlength="8"
+                      />
+                      <p id="refNoErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-md-8 mx-auto">
+                    <div class="form-group">
+                      <label
+                        >Nomor Handphone
+                        <strong class="text-danger">*</strong></label
+                      >
+                      <label style="color: red"
+                        >(Contoh : '628123456789')</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="mobile_phone_num"
+                        name="mobile_phone_num"
+                        placeholder="Nomor Handphone"
+                        onkeypress="return isNumberKey(event)"
+                        onkeyup="this.value = this.value.replace(/[^0-9]/g, '')"
+                        maxlength="14"
+                      />
+                      <p id="mobilePhoneNumErr" class="text-danger"></p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mx-auto text-center">
+                    <p id="errorMess" class="text-danger"></p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2 col-sm-4 mx-auto">
+                    <button id="nextBtn" type="button" class="nicebtn w-100">
+                      Lanjut
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <p class="text-danger"><em>* harus diisi</em></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="modal fade"
+      id="msgModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="msgModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <p id="msgModalText"></p>
+            <button
+              type="button"
+              class="nicebtn"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var form = document.getElementById("formContinueOpenAcc");
+
+      function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+        var phoneno = document.getElementById("mobile_phone_num").value;
+
+        if (phoneno.substr(0, 2) != "62") {
+          document.getElementById("mobile_phone_num").value = "62" + phoneno;
+        }
+        if (phoneno.substr(0, 2) == "62") {
+          document.getElementById("mobile_phone_num").value =
+            "62" + phoneno.substr(2, phoneno.length - 2);
+        }
+        if (phoneno.substr(0, 3) == "620") {
+          document.getElementById("mobile_phone_num").value =
+            "62" + phoneno.substr(3, phoneno.length - 3);
+        }
+        if (phoneno.substr(0, 4) == "6262") {
+          document.getElementById("mobile_phone_num").value =
+            "62" + phoneno.substr(4, phoneno.length - 4);
+        }
+        return true;
+      }
+
+      $(document).ready(function () {
+        // form.reset();
+        $("#nextBtn").click(() => {
+          let mobilePhone = form["mobile_phone_num"].value;
+          let refNo = form["ref_no"].value;
+          console.log(mobilePhone);
+          if (mobilePhone === "") {
+            $("#mobilePhoneNumErr").html("Nomor Handphone tidak boleh kosong");
+          }
+          if (refNo === "") {
+            $("#refNoErr").html("Nomor Referensi tidak boleh kosong");
+          }
+          if (!mobilePhone || !refNo) {
+            $("#errorMess").html("Mohon Periksa Kembali Form Anda");
+          } else {
+            window.location.replace("/customer/kyc/index.html");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
