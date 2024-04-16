@@ -2,6 +2,12 @@ $(document).ready(function () {
   $(".not-human, .triangle").hide();
   $(".verify").addClass("disabled");
 
+  // Pertanyaan untuk verifikasi
+  const verificationQuestion = "5 + 5?";
+  const correctAnswer = "10"; // Jawaban yang benar
+
+  // document.getElementById("question").innerHTML(verificationQuestion);
+
   function human() {
     if ($(".checkbox-text").hasClass("robot")) {
       return;
@@ -56,10 +62,16 @@ $(document).ready(function () {
   });
 
   $(".verify").click(function () {
-    if ($(".captcha-code").val() == "dummy") {
-      // Membandingkan dengan teks "dummy"
-      $(".checkbox-text").removeClass("robot").addClass("human");
-      $(".not-human, .triangle").slideUp();
+    // Jika pengguna tidak manusia, periksa jawaban
+    if ($(".checkbox-text").hasClass("robot")) {
+      const userAnswer = $(".captcha-code").val().trim().toLowerCase();
+      if (userAnswer === correctAnswer.toLowerCase()) {
+        $(".checkbox-text").removeClass("robot").addClass("human");
+        $(".not-human, .triangle").slideUp();
+      } else {
+        alert("Incorrect answer! Please try again.");
+        $(".captcha-code").val(""); // Reset input
+      }
     }
   });
 });
