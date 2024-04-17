@@ -4,7 +4,7 @@ $(document).ready(function () {
 
   // Pertanyaan untuk verifikasi
   const verificationQuestion = "5 + 5?";
-  const correctAnswer = "10"; // Jawaban yang benar
+  const correctAnswer = "6"; // Jawaban yang benar
 
   // document.getElementById("question").innerHTML(verificationQuestion);
 

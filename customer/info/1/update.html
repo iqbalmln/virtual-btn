@@ -248,7 +248,10 @@
                       <label for="mother_name"
                         >Nama Gadis Ibu Kandung
                         <strong class="text-danger">*</strong>
-                        <p class="small-desc mb-0">
+                        <p
+                          style="font-size: 14px !important"
+                          class="small-desc mb-0"
+                        >
                           (Penulisan nama, spasi dan gelar harus sesuai dengan
                           data Disdukcapil)
                         </p>
@@ -542,6 +545,9 @@
                         <option value="-1">LAINNYA</option>
                       </select>
                       <p id="occupationErr" class="text-danger"></p>
+                      <label for="other_occu" class="d-none"
+                        >Jenis Pekerjaan Lainnya</label
+                      >
                       <input
                         type="text"
                         class="form-control text-uppercase d-none"
@@ -641,13 +647,13 @@
       id="msgModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="msgModalLabel"
+      aria-labelledby="msgModalText"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <p id="msgModalText"></p>
+            <p id="msgModalText" class="d-none">Close Modal</p>
             <button
               type="button"
               class="nicebtn"
@@ -674,7 +680,9 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tahapan Pembukaan Rekening Salah</h5>
+            <h2 style="font-size: 20px" class="modal-title">
+              Tahapan Pembukaan Rekening Salah
+            </h2>
           </div>
           <div class="modal-body">
             <form>
@@ -710,9 +718,13 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="sessionReminderModalLabel">
+            <h2
+              style="font-size: 20px"
+              class="modal-title"
+              id="sessionReminderModalLabel"
+            >
               Session Segera Berakhir
-            </h5>
+            </h2>
           </div>
           <div class="modal-body">
             <form>
@@ -748,9 +760,13 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="sessionOverModalLabel">
+            <h2
+              style="font-size: 20px"
+              class="modal-title"
+              id="sessionOverModalLabel"
+            >
               Session Berakhir
-            </h5>
+            </h2>
           </div>
           <div class="modal-body">
             <form>

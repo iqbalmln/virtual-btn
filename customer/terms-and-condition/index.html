@@ -620,7 +620,9 @@
             <label for="check">
               <div class="input-container">
                 <input type="checkbox" class="checkbox" id="check" />
-                <span class="checkbox-text">I'm not a robot</span>
+                <span style="color: #333" class="checkbox-text"
+                  >I'm not a robot</span
+                >
               </div>
             </label>
             <figure
@@ -633,18 +635,31 @@
                 align-items: center;
               "
             >
-              <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" />
-              <span class="recaptcha">reCAPTCHA</span>
+              <img
+                src="https://www.gstatic.com/recaptcha/api2/logo_48.png"
+                alt="logo reCAPTCHA"
+              />
+              <span style="color: #333" class="recaptcha">reCAPTCHA</span>
             </figure>
             <br />
             <div class="triangle"></div>
 
             <div class="not-human">
-              <p style="text-align: center; font-size: 1rem;">Jawablah Pertanyaan dibawah ini:</p>
+              <p style="text-align: center; font-size: 1rem">
+                Jawablah Pertanyaan dibawah ini:
+              </p>
               <div>
-                <p id="question" style="text-align: center; font-size: 20px;">5 + 5 = ?</p>
+                <p id="question" style="text-align: center; font-size: 20px">
+                  5 + 1 = ?
+                </p>
               </div>
+              <label
+                style="position: absolute; top: 0; visibility: hidden"
+                for="captcha-code"
+                >Captcha Code</label
+              >
               <input
+                id="captcha-code"
                 type="text"
                 class="captcha-code"
                 placeholder="Type the text"

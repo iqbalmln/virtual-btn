@@ -1,0 +1,36 @@
+body {
+  height: 100vh;
+  width: 100%;
+}
+main {
+  height: 100vh;
+  width: 100%;
+  background-image: url(https://i.ibb.co/k88hK2t/bg.jpg);
+  background-position: 50%;
+  background-repeat: repeat;
+  background-size: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.video-conference {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#nextBtn {
+  border: none;
+  outline: none;
+  padding: 4px 12px;
+  width: 200px;
+  background-color: white;
+  color: #0b549f;
+  border-radius: 8px;
+  font-weight: 600;
+}
+#nextBtn:focus {
+  outline: lightgreen solid 8px;
+}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -84,6 +84,11 @@
                         <p id="branchOfficeErr" class="text-danger"></p>
                         <div class="row">
                           <div class="col-md-8">
+                            <label
+                              style="position: absolute; visibility: hidden"
+                              for="kycDate"
+                              >Tanggal</label
+                            >
                             <input
                               type="text"
                               class="form-control"
@@ -93,6 +98,11 @@
                             />
                           </div>
                           <div class="col-md-4">
+                            <label
+                              for="kycTime"
+                              style="position: absolute; visibility: hidden"
+                              >Waktu</label
+                            >
                             <select class="form-control" id="kycTime">
                               <option value="" disabled selected>
                                 --Waktu--
@@ -110,6 +120,11 @@
                             </select>
                           </div>
                         </div>
+                        <label
+                          for="kycDateVal"
+                          style="position: absolute; visibility: hidden"
+                          >Nomor Telepon</label
+                        >
                         <input type="text" class="d-none" id="kycDateVal" />
                         <p id="kycDateTimeErr" class="text-danger"></p>
                         <div id="branchOfficeInfoBox" class="d-none">
@@ -160,7 +175,7 @@
       id="msgModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="msgModalLabel"
+      aria-labelledby="msgModalText"
       aria-hidden="true"
     >
       <div class="modal-dialog" role="document">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -179,8 +179,17 @@
                       </select>
                       <p id="cardDelivErr" class="text-danger"></p>
                     </div>
-                    <div class="form-group d-none" id="addBranchOfficeFld">
-                      <select class="form-control" name="branch_office">
+                    <div
+                      style="position: relative"
+                      class="form-group d-none"
+                      id="addBranchOfficeFld"
+                    >
+                      <label for="branch_office" class="d-none">tes</label>
+                      <select
+                        id="branch_office"
+                        class="form-control"
+                        name="branch_office"
+                      >
                         <option value=""></option>
                       </select>
 
@@ -341,9 +350,13 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="sessionReminderModalLabel">
+            <h2
+              style="font-size: 20px"
+              class="modal-title"
+              id="sessionReminderModalLabel"
+            >
               Session Segera Berakhir
-            </h5>
+            </h2>
           </div>
           <div class="modal-body">
             <form>
@@ -379,9 +392,9 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="sessionOverModalLabel">
+            <h2 style="font-size: 20px;" class="modal-title" id="sessionOverModalLabel">
               Session Berakhir
-            </h5>
+            </h2>
           </div>
           <div class="modal-body">
             <form>
